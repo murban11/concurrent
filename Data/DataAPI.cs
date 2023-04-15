@@ -5,7 +5,7 @@ using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Data
+namespace DataAPI
 {
     public abstract class AbstractDataAPI
     {
@@ -24,6 +24,7 @@ namespace Data
         public abstract int GetBoardWidth();
 
         public abstract int GetBoardHeight();
+        public abstract int GetBallNumber();
 
         public abstract void GenerateBalls(int numberOfBalls, double radius, double weight, Vector2 maxSpeed);
 
@@ -73,6 +74,10 @@ namespace Data
             public override int GetBoardWidth()
             {
                 return Board.Width;
+            }
+            public override int GetBallNumber()
+            {
+                return Board.getBallNumber();
             }
 
             public override void SetBallSpeedVector(int ballID, Vector2 speed)

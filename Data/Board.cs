@@ -5,13 +5,14 @@ using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Data
+namespace DataAPI
 {
     public class Board
     {
         
         public int Width { get; private set; }
         public int Height { get; private set; }
+        public int BallNumber { get; private set; }
 
         private readonly List<Ball> balls = new List<Ball>();
         private List<Ball> Balls { get { return balls; } }
@@ -32,10 +33,21 @@ namespace Data
 
         public void generateBalls(int numberOfBalls, double radius, double weight, Vector2 maxVelocity)
         {
+            BallNumber = numberOfBalls;
             for (int i = 0; i < numberOfBalls; i++)
             {
                 Balls.Add(createBall(i, radius, weight, maxVelocity));
             }
+        }
+
+        public int getBallNumber()
+        {
+            return BallNumber;
+        }
+
+        public void addBall (Ball ball)
+        {
+            Balls.Add(ball);
         }
 
         public Ball GetBall(int id)

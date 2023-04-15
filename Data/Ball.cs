@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Numerics;
 
-namespace Data
+namespace DataAPI
 {
     public class Ball
     {
@@ -23,6 +23,10 @@ namespace Data
         public void UpdatePosition()
         {
             Coordinates = Vector2.Add(Coordinates, SpeedVector);
+        }
+        public void changeSpeedVector(Vector2 data)
+        {
+            SpeedVector = data;
         }
     }
 }
