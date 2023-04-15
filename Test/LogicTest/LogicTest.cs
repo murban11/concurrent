@@ -1,5 +1,5 @@
 using DataAPI;
-using Logic;
+using LogicAPI;
 using System.Numerics;
 
 namespace LogicTest
@@ -13,9 +13,13 @@ namespace LogicTest
             BallLogic logic = new BallLogic();
             Board board = new Board(100, 100);
             Ball ball = new Ball(0, new System.Numerics.Vector2(2, 2), 1, 1, new System.Numerics.Vector2(-5, -5));
+            Ball ball1 = new Ball(0, new System.Numerics.Vector2(2, 2), 1, 1, new System.Numerics.Vector2(5, 5));
             board.addBall(ball);
             ball.UpdatePosition();
             Assert.IsFalse(logic.checkNextMove(ball, board));
+            board.addBall(ball1);
+            ball1.UpdatePosition();
+            Assert.IsTrue(logic.checkNextMove(ball1, board));
         }
 
         [TestMethod]

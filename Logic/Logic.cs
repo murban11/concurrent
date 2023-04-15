@@ -2,7 +2,7 @@
 
 using System.Numerics;
 
-namespace Logic
+namespace LogicAPI
 {
     public class BallLogic
     {

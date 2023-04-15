@@ -25,6 +25,7 @@ namespace DataAPI
 
         public abstract int GetBoardHeight();
         public abstract int GetBallNumber();
+        public abstract Board GetBoard();
 
         public abstract void GenerateBalls(int numberOfBalls, double radius, double weight, Vector2 maxSpeed);
 
@@ -88,6 +89,11 @@ namespace DataAPI
             public override void UpdateBallPosition(int ballID)
             {
                 Board.GetBall(ballID).UpdatePosition();
+            }
+
+            public override Board GetBoard()
+            {
+                return Board;
             }
         }
 
