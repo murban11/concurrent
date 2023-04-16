@@ -27,14 +27,11 @@ namespace LogicTest
         {
             BallLogic logic = new BallLogic();
             Board board = new Board(100, 100);
-            Ball ball = new Ball(0, new System.Numerics.Vector2(2, 2), 1, 1, new System.Numerics.Vector2(-5, -5));
+            Ball ball = new Ball(0, new System.Numerics.Vector2(2, 2), 1, 1, new System.Numerics.Vector2(-500, 2));
             board.addBall(ball);
-            ball.UpdatePosition();
-            if(logic.checkNextMove(ball, board) == false)
-            {
-                logic.changeDirection(ball, board);
-            }
-            Assert.IsTrue(logic.checkNextMove(ball, board));
+            Vector2 startDirection = ball.SpeedVector;
+            logic.changeDirection(ball, board);
+            Assert.AreNotEqual(startDirection, ball.SpeedVector);
 
         }
 

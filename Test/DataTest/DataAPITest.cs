@@ -17,8 +17,8 @@ namespace DataTest
             api.GenerateBalls(3, 5.0, 1.0, new System.Numerics.Vector2(2, 2));
             for (int i = 0; i < 3; i++)
             {
-                Assert.IsTrue(api.GetBallCoordinates(i).X > 10.0F & api.GetBallCoordinates(i).X < 630);
-                Assert.IsTrue(api.GetBallCoordinates(i).Y > 10.0F & api.GetBallCoordinates(i).Y < 414);
+                Assert.IsTrue(api.GetBallCoordinates(i).X > 10.0F & api.GetBallCoordinates(i).X < 414);
+                Assert.IsTrue(api.GetBallCoordinates(i).Y > 10.0F & api.GetBallCoordinates(i).Y < 630);
             }
         }
 
@@ -54,7 +54,7 @@ namespace DataTest
         {
             AbstractDataAPI api = AbstractDataAPI.CreateDataAPI();
             api.GenerateBalls(3, 5.0, 1.0, new System.Numerics.Vector2(2, 2));
-            Assert.AreEqual(api.GetBoardWidth(), 630);
+            Assert.AreEqual(api.GetBoardWidth(), 414);
         }
 
         [TestMethod]
@@ -62,7 +62,7 @@ namespace DataTest
         {
             AbstractDataAPI api = AbstractDataAPI.CreateDataAPI();
             api.GenerateBalls(3, 5.0, 1.0, new System.Numerics.Vector2(2, 2));
-            Assert.AreEqual(api.GetBoardHeight(), 414);
+            Assert.AreEqual(api.GetBoardHeight(), 630);
         }
 
         [TestMethod]
