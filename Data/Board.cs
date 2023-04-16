@@ -25,7 +25,7 @@ namespace Data
         private Ball createBall(int id, double radius, double weight, Vector2 maxVelocity)
         {
             Random rand = new();
-            Vector2 initialPosition = new((float)(rand.NextDouble() * (Width - radius) + 10.1F), (float)(rand.NextDouble() * (Height - radius) + 10.1F));
+            Vector2 initialPosition = new((float)(rand.NextDouble() * (Width - 2 * radius) + 10.1F), (float)(rand.NextDouble() * (Height - 2 * radius) + 10.1F));
             Vector2 initialSpeed = new((float)(rand.NextDouble() * maxVelocity.X), (float)(rand.NextDouble() * maxVelocity.Y));
 
             return new Ball(id, initialPosition, radius, weight, initialSpeed);
