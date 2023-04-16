@@ -40,9 +40,6 @@ namespace Logic
             {
                 NewSpeedVector.Y = -1 * ball.SpeedVector.Y;
             }
-            /*
-            NewSpeedVector.X = -1 * ball.SpeedVector.X;
-            NewSpeedVector.Y = -1 * ball.SpeedVector.Y; */
             ball.changeSpeedVector(NewSpeedVector);
         }
 
