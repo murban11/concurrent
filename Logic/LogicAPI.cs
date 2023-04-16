@@ -1,20 +1,22 @@
-﻿using DataAPI;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Data;
 using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace LogicAPI
+namespace Logic
 {
     public abstract class AbstractLogicAPI
     {
-        public abstract void Run(int ballsNumber);
+        public abstract void Start(int ballsNumber);
         public abstract Vector2 GetBallCoordinates(int id);
         public abstract Vector2 GetBallDirection(int id);
         public abstract int GetBoxWidth();
         public abstract int GetBoxHeight();
+        public abstract double GetBallRadius(int id);
+
+        public abstract int GetBallNumber();
+
+        public abstract void Move();
+
+        public abstract List<Ball> GetBalls();
 
         public static AbstractLogicAPI CreateLogicAPI(AbstractDataAPI dataAPI = default)
         {
@@ -24,20 +26,17 @@ namespace LogicAPI
         private class LogicAPI : AbstractLogicAPI
         {
             private readonly AbstractDataAPI dataAPI;
+            private BallLogic logic;
 
             public LogicAPI(AbstractDataAPI dataAPI)
             {
                 this.dataAPI = dataAPI;
             }
 
-            public override void Run(int ballsNumber)
+            public override void Start(int ballsNumber)
             {
-                dataAPI.GenerateBalls(ballsNumber, 1, 1, new Vector2(2, 2));
-                BallLogic logic = new BallLogic();
-                while (true)
-                {
-                    logic.updateAllPostions(dataAPI.GetBoard());
-                }
+                dataAPI.GenerateBalls(ballsNumber, 10, 1, new Vector2(3, 3));
+                logic = new BallLogic();
             }
 
             public override Vector2 GetBallCoordinates(int id)
@@ -58,6 +57,31 @@ namespace LogicAPI
             public override int GetBoxHeight()
             {
                 return dataAPI.GetBoardHeight();
+            }
+
+            public override double GetBallRadius(int id)
+            {
+                return dataAPI.GetBallRadius(id);
+            }
+
+            public override int GetBallNumber()
+            {
+                return dataAPI.GetBallNumber();
+            }
+
+            public override void Move()
+            {
+                logic.updateAllPostions(dataAPI.GetBoard());
+            }
+
+            public override List<Ball> GetBalls()
+            {
+                List<Ball> list = new List<Ball>();
+                for (int i = 0; i < GetBallNumber(); i++)
+                {
+                    list.Add(dataAPI.GetBoard().GetBall(i));
+                }
+                return list;
             }
         }
     }

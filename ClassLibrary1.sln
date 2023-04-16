@@ -10,6 +10,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{F904A0C4-3B02-47FB-8861-7BB335296E14}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Model", "Presentation\Model\Model.csproj", "{6C2053FF-6987-4EE3-B4BB-487644C087E8}"
+	ProjectSection(ProjectDependencies) = postProject
+		{5E073D24-B737-4ED6-A078-770183EB4E1E} = {5E073D24-B737-4ED6-A078-770183EB4E1E}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ViewModel", "Presentation\ViewModel\ViewModel.csproj", "{29144CA5-04DE-4DB8-BDD0-769B5C9171DD}"
 EndProject
@@ -19,7 +22,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{47638844-1
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataTest", "Test\DataTest\DataTest.csproj", "{615D2696-9FEB-4336-B870-72BF0AA429E1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogicTest", "Test\LogicTest\LogicTest.csproj", "{5988B5CD-D146-41B6-AF17-C0446C337519}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogicTest", "Test\LogicTest\LogicTest.csproj", "{5988B5CD-D146-41B6-AF17-C0446C337519}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

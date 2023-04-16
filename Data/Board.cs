@@ -5,7 +5,7 @@ using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAPI
+namespace Data
 {
     public class Board
     {
@@ -25,7 +25,7 @@ namespace DataAPI
         private Ball createBall(int id, double radius, double weight, Vector2 maxVelocity)
         {
             Random rand = new();
-            Vector2 initialPosition = new((float)(rand.NextDouble() * (Width - radius) + 10.0F), (float)(rand.NextDouble() * (Height - radius) + 10.0F));
+            Vector2 initialPosition = new((float)(rand.NextDouble() * (Width - radius) + 10.1F), (float)(rand.NextDouble() * (Height - radius) + 10.1F));
             Vector2 initialSpeed = new((float)(rand.NextDouble() * maxVelocity.X), (float)(rand.NextDouble() * maxVelocity.Y));
 
             return new Ball(id, initialPosition, radius, weight, initialSpeed);

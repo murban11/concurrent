@@ -1,4 +1,4 @@
-﻿using LogicAPI;
+﻿using Logic;
 
 namespace LogicAPITest
 {

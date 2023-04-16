@@ -1,5 +1,5 @@
-using DataAPI;
-using LogicAPI;
+using Data;
+using Logic;
 using System.Numerics;
 
 namespace LogicTest

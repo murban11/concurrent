@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Numerics;
 
-namespace DataAPI
+namespace Data
 {
     public class Ball
     {

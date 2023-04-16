@@ -5,7 +5,7 @@ using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAPI
+namespace Data
 {
     public abstract class AbstractDataAPI
     {
@@ -40,7 +40,7 @@ namespace DataAPI
 
             public DataAPI()
             {
-                Board = new Board(630, 414);
+                Board = new Board(414, 630);
             }
             public override void GenerateBalls(int numberOfBalls, double radius, double weight, Vector2 maxSpeed)
             {
