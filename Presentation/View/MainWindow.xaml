@@ -11,35 +11,34 @@
         <model:ViewModelAPI />
     </Window.DataContext>
     <StackPanel>
-        <Grid Height="417" Width="644" Margin="0,0,0,0">
-            <Border Height="413" Width="640" BorderThickness="2,2,2,2" BorderBrush="Black">
-                <ItemsControl ItemsSource="{Binding Balls}" Height="413" Margin="0,0,0,0" Width="640">
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <Canvas/>
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <Ellipse Width= "{Binding Diameter}" Height="{Binding Diameter}" Fill="Blue" Stroke="Black" />
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                    <ItemsControl.ItemContainerStyle>
-                        <Style TargetType="ContentPresenter">
-                            <Setter Property="Canvas.Top" Value="{Binding X}" />
-                            <Setter Property="Canvas.Left" Value="{Binding Y}" />
-                        </Style>
-                    </ItemsControl.ItemContainerStyle>
-                </ItemsControl>
-            </Border>
+        <Grid Height="414" Width="630" Margin="0,100,0,0">
+            <Border Height="414" Width="630" BorderThickness="2,2,2,2" Margin="0,10,-19,-12" BorderBrush="Black"/>
+            <ItemsControl ItemsSource="{Binding Balls}" Margin="0,0,0,0">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Canvas/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Ellipse Width= "{Binding Diameter}" Height="{Binding Diameter}" Fill="Blue" Stroke="Black" />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+                <ItemsControl.ItemContainerStyle>
+                    <Style TargetType="ContentPresenter">
+                        <Setter Property="Canvas.Top" Value="{Binding X}" />
+                        <Setter Property="Canvas.Left" Value="{Binding Y}" />
+                    </Style>
+                </ItemsControl.ItemContainerStyle>
+            </ItemsControl>
+
         </Grid>
-        <StackPanel>
+        <StackPanel Margin="0,50,0,0">
             <TextBox Height="19" TextWrapping="Wrap" Width="88" RenderTransformOrigin="0.396,-0.824" TextAlignment="Center" Text ="{Binding BallsNumberInput}" Margin="-350,0,0,0"/>
-        <Button Content="Start" Width="100" RenderTransformOrigin="0.503,-0.818" Command="{Binding StartButton}" Margin="0,20,0,0"/>
-        <TextBlock Height="54" TextWrapping="Wrap" Text="Podaj liczbę kul:" Width="120" Margin="-550,-30,0,0"/>
+            <Button Content="Start" Width="100" RenderTransformOrigin="0.503,-0.818" Command="{Binding StartButton}" Margin="0,20,0,0"/>
+            <TextBlock Height="54" TextWrapping="Wrap" Text="Podaj liczbę kul:" Width="120" Margin="-550,-30,0,0"/>
         </StackPanel>
-        
     </StackPanel>
-    
+
 
 </Window>

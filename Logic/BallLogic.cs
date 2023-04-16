@@ -17,7 +17,7 @@ namespace Logic
             return false;
         }
 
-        public void changeDirection(Ball ball)
+        public void changeDirection(Ball ball, Board board)
         {
             /*Random rand = new();
             Ball testBall = ball;
@@ -31,9 +31,18 @@ namespace Logic
             }
             while(checkNextMove(testBall, board) == false);
             ball.changeSpeedVector(position);*/
-            Vector2 NewSpeedVector = new Vector2();
+            Vector2 NewSpeedVector = ball.SpeedVector;
+            if (checkVerticalCollision(ball.Coordinates, ball.SpeedVector, ball.Radius, board.Width))
+            {
+                NewSpeedVector.X = -1 * ball.SpeedVector.X;
+            }
+            if (checkHorizontalCollision(ball.Coordinates, ball.SpeedVector, ball.Radius, board.Height))
+            {
+                NewSpeedVector.Y = -1 * ball.SpeedVector.Y;
+            }
+            /*
             NewSpeedVector.X = -1 * ball.SpeedVector.X;
-            NewSpeedVector.Y = -1 * ball.SpeedVector.Y;
+            NewSpeedVector.Y = -1 * ball.SpeedVector.Y; */
             ball.changeSpeedVector(NewSpeedVector);
         }
 
@@ -43,7 +52,7 @@ namespace Logic
             {
                 while(checkNextMove(board.GetBall(i), board) == false)
                 {
-                    changeDirection(board.GetBall(i));
+                    changeDirection(board.GetBall(i), board);
                     if (!(checkVerticalCollision(board.GetBall(i).Coordinates, board.GetBall(i).SpeedVector, board.GetBall(i).Radius, board.Width)
                         & checkHorizontalCollision(board.GetBall(i).Coordinates, board.GetBall(i).SpeedVector, board.GetBall(i).Radius, board.Height)))
                     {

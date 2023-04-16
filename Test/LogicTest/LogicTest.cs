@@ -32,7 +32,7 @@ namespace LogicTest
             ball.UpdatePosition();
             if(logic.checkNextMove(ball, board) == false)
             {
-                logic.changeDirection(ball, board, new System.Numerics.Vector2(1,1));
+                logic.changeDirection(ball, board);
             }
             Assert.IsTrue(logic.checkNextMove(ball, board));
 

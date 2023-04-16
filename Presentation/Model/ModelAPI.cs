@@ -62,7 +62,6 @@ namespace Model
             logicAPI.Move();
             for (int i = 0; i < Balls.Count; i++)
             {
-                System.Diagnostics.Trace.WriteLine($"{logicAPI.GetBallCoordinates(i).X}, {logicAPI.GetBallCoordinates(i).Y}, i: {i}");
                 Balls[i].Move(logicAPI.GetBallCoordinates(i).X, logicAPI.GetBallCoordinates(i).Y);
             }
         }
