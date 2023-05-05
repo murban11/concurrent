@@ -3,30 +3,30 @@ using System.Runtime.CompilerServices;
 
 namespace Model
 {
-    public class BallModel : INotifyPropertyChanged
+    internal class BallModel : IBallModel, INotifyPropertyChanged
     {
         private double x;
         private double y;
         private double diameter;
 
-        public double X {
+        public override double X {
             get { return x; }
             set { x = value; onPropertyChanged(); }
         }
 
-        public double Y
+        public override double Y
         {
             get { return y; }
             set { y = value; onPropertyChanged(); }
         }
 
-        public double Diameter
+        public override double Diameter
         {
             get { return diameter; }
             set { diameter = value; onPropertyChanged(); }
         }
 
-        public void Move(double x, double y)
+        public override void Move(double x, double y)
         {
             X = x;
             Y = y;

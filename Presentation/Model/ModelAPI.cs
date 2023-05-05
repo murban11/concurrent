@@ -1,29 +1,8 @@
-﻿using Data;
-using Logic;
-using System.Collections.ObjectModel;
-using System.Threading.Tasks;
+﻿using Logic;
 
 namespace Model
 {
-    public abstract class ModelAbstractAPI
-    {
-        public List<BallModel> Balls { get; set; }
-
-        public abstract void Start(int numberOfBalls);
-
-        public abstract BallModel GetBallModel(int id);
-
-        public abstract void Simulate();
-
-        public static ModelAbstractAPI CreateAPI()
-        { 
-            return new ModelAPI(AbstractLogicAPI.CreateLogicAPI()); 
-        }
-
-        public abstract void Move(object state);
-        
-    }
-    internal class ModelAPI : ModelAbstractAPI
+    internal class ModelAPI : AbstractModelAPI
     {
         private AbstractLogicAPI logicAPI;
         private Timer timer;
@@ -32,7 +11,7 @@ namespace Model
         public ModelAPI(AbstractLogicAPI logicAPI)
         {
             this.logicAPI = logicAPI;
-            Balls = new List<BallModel> ();
+            Balls = new List<IBallModel> ();
         }
 
 
@@ -46,7 +25,7 @@ namespace Model
             Simulate();
         }
 
-        public override BallModel GetBallModel(int id)
+        public override IBallModel GetBallModel(int id)
         {
             return Balls[id];
         }

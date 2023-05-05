@@ -101,7 +101,7 @@ namespace LogicAPITest
             var LogicAPI = AbstractLogicAPI.CreateLogicAPI();
             LogicAPI.Start(3);
             var testCoordinates = LogicAPI.GetBalls();
-            Assert.IsInstanceOfType(testCoordinates, typeof(List<Ball>));
+            Assert.IsInstanceOfType(testCoordinates, typeof(List<IBall>));
             Assert.IsNotNull(testCoordinates);
         }
     }

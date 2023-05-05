@@ -9,10 +9,10 @@ namespace ViewModel
 {
     public class ViewModelAPI : INotifyPropertyChanged
 	{
-		private readonly ModelAbstractAPI ModelAPI;
+		private readonly AbstractModelAPI ModelAPI;
 
-        private ObservableCollection<BallModel> balls;
-        public ObservableCollection<BallModel> Balls
+        private ObservableCollection<IBallModel> balls;
+        public ObservableCollection<IBallModel> Balls
         {
             get { return balls; }
             set
@@ -23,8 +23,6 @@ namespace ViewModel
             }
         }
 
-       
-
         public event PropertyChangedEventHandler PropertyChanged;
 
 		public ICommand StartButton { get; set; }
@@ -32,8 +30,8 @@ namespace ViewModel
 
 		public ViewModelAPI()
 		{
-			ModelAPI = ModelAbstractAPI.CreateAPI();
-			Balls = new ObservableCollection<BallModel>();
+			ModelAPI = AbstractModelAPI.CreateAPI();
+			Balls = new ObservableCollection<IBallModel>();
 
 
 			StartButton = new RelayCommand(() => StartButtonHandler());
@@ -51,7 +49,6 @@ namespace ViewModel
 			}
 			
         }
-
 		public int GetBallsNumberInput()
 		{
 			return int.TryParse(BallsNumberInput, out _) && BallsNumberInput != "0" ? int.Parse(BallsNumberInput) : 0;

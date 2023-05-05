@@ -5,7 +5,7 @@ namespace Logic
 {
     public class BallLogic
     {
-        public Boolean checkNextMove(Ball ball, Board board)
+        public Boolean checkNextMove(IBall ball, IBoard board)
         {
             if(ball.Coordinates.X + ball.Radius < board.Width && ball.Coordinates.X - ball.Radius > 0)
             {
@@ -17,20 +17,8 @@ namespace Logic
             return false;
         }
 
-        public void changeDirection(Ball ball, Board board)
+        public void changeDirection(IBall ball, IBoard board)
         {
-            /*Random rand = new();
-            Ball testBall = ball;
-            Vector2 position;
-            do
-            {
-                position = new((float)(rand.NextDouble() * maxVelocity.X), (float)(rand.NextDouble() * maxVelocity.Y));
-                testBall.changeSpeedVector(position);
-                testBall.UpdatePosition();
-
-            }
-            while(checkNextMove(testBall, board) == false);
-            ball.changeSpeedVector(position);*/
             Vector2 NewSpeedVector = ball.SpeedVector;
             if (checkVerticalCollision(ball.Coordinates, ball.SpeedVector, ball.Radius, board.Width))
             {
@@ -43,7 +31,7 @@ namespace Logic
             ball.changeSpeedVector(NewSpeedVector);
         }
 
-        public void updateAllPostions(Board board)
+        public void updateAllPostions(IBoard board)
         {
             for (int i = 0; i < board.getBallNumber(); i++)
             {

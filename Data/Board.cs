@@ -1,28 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Numerics;
 
 namespace Data
 {
-    public class Board
+    internal class Board: IBoard
     {
         
-        public int Width { get; private set; }
-        public int Height { get; private set; }
-        public int BallNumber { get; private set; }
+        public override int Width { get; set; }
+        public override int Height { get; set; }
+        public override int BallNumber { get; set; }
 
-        private readonly List<Ball> balls = new List<Ball>();
-        private List<Ball> Balls { get { return balls; } }
+        private readonly List<IBall> balls = new List<IBall>();
+        private List<IBall> Balls { get { return balls; } }
 
         public Board(int Width, int Height) {
             this.Width = Width;
             this.Height = Height;
         }
 
-        private Ball createBall(int id, double radius, double weight, Vector2 maxVelocity)
+        private IBall createBall(int id, double radius, double weight, Vector2 maxVelocity)
         {
             Random rand = new();
             Vector2 initialPosition = new((float)(rand.NextDouble() * (Width - 2 * radius) + 10.1F), (float)(rand.NextDouble() * (Height - 2 * radius) + 10.1F));
@@ -31,7 +26,7 @@ namespace Data
             return new Ball(id, initialPosition, radius, weight, initialSpeed);
         }
 
-        public void generateBalls(int numberOfBalls, double radius, double weight, Vector2 maxVelocity)
+        public override void generateBalls(int numberOfBalls, double radius, double weight, Vector2 maxVelocity)
         {
             BallNumber = numberOfBalls;
             for (int i = 0; i < numberOfBalls; i++)
@@ -40,17 +35,17 @@ namespace Data
             }
         }
 
-        public int getBallNumber()
+        public override int getBallNumber()
         {
             return BallNumber;
         }
 
-        public void addBall (Ball ball)
+        public override void addBall (IBall ball)
         {
             Balls.Add(ball);
         }
 
-        public Ball GetBall(int id)
+        public override IBall GetBall(int id)
         {
             return Balls[id];
         }

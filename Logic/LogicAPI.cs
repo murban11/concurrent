@@ -3,86 +3,65 @@ using System.Numerics;
 
 namespace Logic
 {
-    public abstract class AbstractLogicAPI
+    internal class LogicAPI : AbstractLogicAPI
     {
-        public abstract void Start(int ballsNumber);
-        public abstract Vector2 GetBallCoordinates(int id);
-        public abstract Vector2 GetBallDirection(int id);
-        public abstract int GetBoxWidth();
-        public abstract int GetBoxHeight();
-        public abstract double GetBallRadius(int id);
+        private readonly AbstractDataAPI dataAPI;
+        private BallLogic logic;
 
-        public abstract int GetBallNumber();
-
-        public abstract void Move();
-
-        public abstract List<Ball> GetBalls();
-
-        public static AbstractLogicAPI CreateLogicAPI(AbstractDataAPI dataAPI = default)
+        public LogicAPI(AbstractDataAPI dataAPI)
         {
-            return new LogicAPI(dataAPI ?? AbstractDataAPI.CreateDataAPI());
+            this.dataAPI = dataAPI;
         }
 
-        private class LogicAPI : AbstractLogicAPI
+        public override void Start(int ballsNumber)
         {
-            private readonly AbstractDataAPI dataAPI;
-            private BallLogic logic;
+            dataAPI.GenerateBalls(ballsNumber, 10, 1, new Vector2(3, 3));
+            logic = new BallLogic();
+        }
 
-            public LogicAPI(AbstractDataAPI dataAPI)
-            {
-                this.dataAPI = dataAPI;
-            }
+        public override Vector2 GetBallCoordinates(int id)
+        {
+            return dataAPI.GetBallCoordinates(id);
+        }
 
-            public override void Start(int ballsNumber)
-            {
-                dataAPI.GenerateBalls(ballsNumber, 10, 1, new Vector2(3, 3));
-                logic = new BallLogic();
-            }
+        public override Vector2 GetBallDirection(int id)
+        {
+            return dataAPI.GetBallSpeedVector(id);
+        }
 
-            public override Vector2 GetBallCoordinates(int id)
-            {
-                return dataAPI.GetBallCoordinates(id);
-            }
+        public override int GetBoxWidth()
+        {
+            return dataAPI.GetBoardWidth();
+        }
 
-            public override Vector2 GetBallDirection(int id)
-            {
-                return dataAPI.GetBallSpeedVector(id);
-            }
+        public override int GetBoxHeight()
+        {
+            return dataAPI.GetBoardHeight();
+        }
 
-            public override int GetBoxWidth()
-            {
-                return dataAPI.GetBoardWidth();
-            }
+        public override double GetBallRadius(int id)
+        {
+            return dataAPI.GetBallRadius(id);
+        }
 
-            public override int GetBoxHeight()
-            {
-                return dataAPI.GetBoardHeight();
-            }
+        public override int GetBallNumber()
+        {
+            return dataAPI.GetBallNumber();
+        }
 
-            public override double GetBallRadius(int id)
-            {
-                return dataAPI.GetBallRadius(id);
-            }
+        public override void Move()
+        {
+            logic.updateAllPostions(dataAPI.GetBoard());
+        }
 
-            public override int GetBallNumber()
+        public override List<IBall> GetBalls()
+        {
+            List<IBall> list = new List<IBall>();
+            for (int i = 0; i < GetBallNumber(); i++)
             {
-                return dataAPI.GetBallNumber();
+                list.Add(dataAPI.GetBoard().GetBall(i));
             }
-
-            public override void Move()
-            {
-                logic.updateAllPostions(dataAPI.GetBoard());
-            }
-
-            public override List<Ball> GetBalls()
-            {
-                List<Ball> list = new List<Ball>();
-                for (int i = 0; i < GetBallNumber(); i++)
-                {
-                    list.Add(dataAPI.GetBoard().GetBall(i));
-                }
-                return list;
-            }
+            return list;
         }
     }
 }

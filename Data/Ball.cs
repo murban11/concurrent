@@ -1,15 +1,14 @@
-﻿using System.ComponentModel;
-using System.Numerics;
+﻿using System.Numerics;
 
 namespace Data
 {
-    public class Ball
+    internal class Ball: IBall
     {
-        public int ID {  get; }
-        public Vector2 Coordinates { get; private set; }        // (x, y) convention
-        public double Radius { get; private set; }
-        public double Weight { get; private set; }
-        public Vector2 SpeedVector { get; set; }                // (x, y) convention
+        public override int ID {  get; }
+        public override Vector2 Coordinates { get; set; }        // (x, y) convention
+        public override double Radius { get; set; }
+        public override double Weight { get; set; }
+        public override Vector2 SpeedVector { get; set; }                // (x, y) convention
 
 
         public Ball(int ID, Vector2 Coordinates, double Radius, double Weight, Vector2 SpeedVector) {
@@ -20,11 +19,11 @@ namespace Data
             this.SpeedVector = SpeedVector;
         }
 
-        public void UpdatePosition()
+        public override void UpdatePosition()
         {
             Coordinates = Vector2.Add(Coordinates, SpeedVector);
         }
-        public void changeSpeedVector(Vector2 data)
+        public override void changeSpeedVector(Vector2 data)
         {
             SpeedVector = data;
         }

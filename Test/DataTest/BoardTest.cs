@@ -13,7 +13,7 @@ namespace DataTest
         [TestMethod]
         public void TestConstructor()
         {
-            Board board = new Board(100, 100);
+            IBoard board = IBoard.CreateBoard(100, 100);
             Assert.AreEqual(board.Height, 100);
             Assert.AreEqual(board.Width, 100);
         }
@@ -21,7 +21,7 @@ namespace DataTest
         [TestMethod]
         public void TestGenerateBalls()
         {
-            Board board = new Board(100, 100);
+            IBoard board = IBoard.CreateBoard(100, 100);
             board.generateBalls(3, 5.0, 1.0, new System.Numerics.Vector2(2, 2));
             Assert.AreEqual(board.GetBall(0).Radius, 5.0);
         }
@@ -37,8 +37,8 @@ namespace DataTest
         [TestMethod]
         public void TestAddBall()
         {
-            Board board = new Board(100, 100);
-            Ball ball = new Ball(0, new System.Numerics.Vector2(1, 1), 3, 1, new System.Numerics.Vector2(1, 1));
+            IBoard board = IBoard.CreateBoard(100, 100);
+            IBall ball = IBall.CreateBall(0, new System.Numerics.Vector2(1, 1), 3, 1, new System.Numerics.Vector2(1, 1));
             board.addBall(ball);
             Assert.AreEqual(board.GetBall(0).Radius, 3.0);
         }
