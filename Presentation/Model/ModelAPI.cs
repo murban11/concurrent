@@ -11,6 +11,7 @@ namespace Model
     {
         private AbstractLogicAPI logicAPI;
         public List<Task> tasks { get; set; } = new List<Task>();
+        private readonly int TimeInterval = 10; // (in ms)
 
 
         public ModelAPI(AbstractLogicAPI logicAPI)
@@ -62,7 +63,7 @@ namespace Model
                 {
                     logicAPI.Move(index);
                     Balls[index].Move(logicAPI.GetBallCoordinates(index).X, logicAPI.GetBallCoordinates(index).Y);
-                    Thread.Sleep(10);
+                    Thread.Sleep(TimeInterval);
                 }
             }));
         }

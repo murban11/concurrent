@@ -31,13 +31,13 @@ namespace DataTest
         }
 
         [TestMethod]
-        public void TestGetBallSpeedVector()
+        public void TestGetBallDirectionVector()
         {
             AbstractDataAPI api = AbstractDataAPI.CreateDataAPI();
             api.GenerateBalls(3, 5.0, 1.0, new System.Numerics.Vector2(2, 2));
             for (int i = 0; i < 3; i++)
             {
-                Assert.IsTrue(api.GetBallSpeedVector(i).X < 2 & api.GetBallSpeedVector(i).Y < 2);
+                Assert.IsTrue(api.GetBallDirectionVector(i).X < 2 & api.GetBallDirectionVector(i).Y < 2);
             }
         }
 
@@ -66,12 +66,12 @@ namespace DataTest
         }
 
         [TestMethod]
-        public void TestSetBallSpeedVector()
+        public void TestSetBallDirectionVector()
         {
             AbstractDataAPI api = AbstractDataAPI.CreateDataAPI();
             api.GenerateBalls(3, 5.0, 1.0, new System.Numerics.Vector2(2, 2));
-            api.SetBallSpeedVector(0, new System.Numerics.Vector2(1, 1));
-            Assert.AreEqual(api.GetBallSpeedVector(0), new System.Numerics.Vector2(1, 1));
+            api.SetBallDirectionVector(0, new System.Numerics.Vector2(1, 1));
+            Assert.AreEqual(api.GetBallDirectionVector(0), new System.Numerics.Vector2(1, 1));
         }
 
         [TestMethod]

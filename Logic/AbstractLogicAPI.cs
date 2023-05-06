@@ -9,7 +9,7 @@ namespace Logic
 
         public abstract Vector2 GetBallCoordinates(int id);
 
-        public abstract Vector2 GetBallDirection(int id);
+        public abstract Vector2 GetBallDirectionVector(int id);
 
         public abstract int GetBoxWidth();
 

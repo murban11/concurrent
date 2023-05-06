@@ -28,13 +28,13 @@ namespace LogicAPITest
         }
 
         [TestMethod]
-        public void TestGetBallDirection()
+        public void TestGetBallDirectionVector()
         {
             var LogicAPI = AbstractLogicAPI.CreateLogicAPI();
             LogicAPI.Start(3);
             for (int i = 0; i < 3; i++)
             {
-                var testCoordinates = LogicAPI.GetBallDirection(i);
+                var testCoordinates = LogicAPI.GetBallDirectionVector(i);
                 Assert.IsInstanceOfType(testCoordinates, typeof(Vector2));
                 Assert.IsNotNull(testCoordinates);
             }
@@ -58,8 +58,8 @@ namespace LogicAPITest
         {
             var LogicAPI = AbstractLogicAPI.CreateLogicAPI();
             LogicAPI.Start(1);
-            Vector2 start = LogicAPI.GetBallDirection(0);
-            Vector2 target = LogicAPI.GetBallCoordinates(0) + LogicAPI.GetBallDirection(0);
+            Vector2 start = LogicAPI.GetBallDirectionVector(0);
+            Vector2 target = LogicAPI.GetBallCoordinates(0) + LogicAPI.GetBallDirectionVector(0);
             LogicAPI.Move(0);
             Assert.AreNotEqual(start, LogicAPI.GetBallCoordinates(0));
             Assert.AreEqual(target, LogicAPI.GetBallCoordinates(0));

@@ -15,7 +15,7 @@ namespace DataTest
             Assert.AreEqual(ball.Coordinates, new Vector2(0, 0));
             Assert.AreEqual(ball.Radius, 5);
             Assert.AreEqual(ball.Weight, 1);
-            Assert.AreEqual(ball.SpeedVector, new Vector2(1, 1));
+            Assert.AreEqual(ball.DirectionVector, new Vector2(1, 1));
         }
 
         [TestMethod]
@@ -38,11 +38,11 @@ namespace DataTest
         }
 
         [TestMethod]
-        public void TestUpdatePositionUpdateSpeedVector()
+        public void TestUpdatePositionUpdateDirectionVector()
         {
             IBall ball = IBall.CreateBall(0, new Vector2(0, 0), 5, 1, new Vector2(1, -1));
             ball.UpdatePosition();
-            ball.SpeedVector = new Vector2(-1, 1);
+            ball.DirectionVector = new Vector2(-1, 1);
             ball.UpdatePosition();
             Assert.AreEqual(ball.Coordinates, new Vector2(0, 0));
         }

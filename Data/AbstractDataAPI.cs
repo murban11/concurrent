@@ -6,13 +6,13 @@ namespace Data
     {
         public abstract Vector2 GetBallCoordinates(int ballID);
 
-        public abstract Vector2 GetBallSpeedVector(int ballID);
+        public abstract Vector2 GetBallDirectionVector(int ballID);
 
         public abstract double GetBallWeight(int ballID);
 
         public abstract double GetBallRadius(int ballID);
 
-        public abstract void SetBallSpeedVector(int ballID, Vector2 speed);
+        public abstract void SetBallDirectionVector(int ballID, Vector2 direction);
 
         public abstract void UpdateBallPosition(int ballID);
 
@@ -24,7 +24,7 @@ namespace Data
 
         public abstract IBoard GetBoard();
 
-        public abstract void GenerateBalls(int numberOfBalls, double radius, double weight, Vector2 maxSpeed);
+        public abstract void GenerateBalls(int numberOfBalls, double radius, double weight, Vector2 direction);
 
         public static AbstractDataAPI CreateDataAPI()
         {

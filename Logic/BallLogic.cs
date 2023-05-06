@@ -19,16 +19,16 @@ namespace Logic
 
         public void changeDirection(IBall ball, IBoard board)
         {
-            Vector2 NewSpeedVector = ball.SpeedVector;
-            if (checkVerticalCollision(ball.Coordinates, ball.SpeedVector, ball.Radius, board.Width))
+            Vector2 NewDirectionVector = ball.DirectionVector;
+            if (checkVerticalCollision(ball.Coordinates, ball.DirectionVector, ball.Radius, board.Width))
             {
-                NewSpeedVector.X = -1 * ball.SpeedVector.X;
+                NewDirectionVector.X = -1 * ball.DirectionVector.X;
             }
-            if (checkHorizontalCollision(ball.Coordinates, ball.SpeedVector, ball.Radius, board.Height))
+            if (checkHorizontalCollision(ball.Coordinates, ball.DirectionVector, ball.Radius, board.Height))
             {
-                NewSpeedVector.Y = -1 * ball.SpeedVector.Y;
+                NewDirectionVector.Y = -1 * ball.DirectionVector.Y;
             }
-            ball.changeSpeedVector(NewSpeedVector);
+            ball.changeDirectionVector(NewDirectionVector);
         }
 
         public void updateBallPosition(IBoard board, int index)
@@ -36,8 +36,8 @@ namespace Logic
             while(checkNextMove(board.GetBall(index), board) == false)
             {
                 changeDirection(board.GetBall(index), board);
-                if (!(checkVerticalCollision(board.GetBall(index).Coordinates, board.GetBall(index).SpeedVector, board.GetBall(index).Radius, board.Width)
-                    & checkHorizontalCollision(board.GetBall(index).Coordinates, board.GetBall(index).SpeedVector, board.GetBall(index).Radius, board.Height)))
+                if (!(checkVerticalCollision(board.GetBall(index).Coordinates, board.GetBall(index).DirectionVector, board.GetBall(index).Radius, board.Width)
+                    & checkHorizontalCollision(board.GetBall(index).Coordinates, board.GetBall(index).DirectionVector, board.GetBall(index).Radius, board.Height)))
                 {
                     break;
                 }

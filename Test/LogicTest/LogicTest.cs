@@ -29,9 +29,9 @@ namespace LogicTest
             IBoard board = IBoard.CreateBoard(100, 100);
             IBall ball = IBall.CreateBall(0, new System.Numerics.Vector2(2, 2), 1, 1, new System.Numerics.Vector2(-500, 2));
             board.addBall(ball);
-            Vector2 startDirection = ball.SpeedVector;
+            Vector2 startDirection = ball.DirectionVector;
             logic.changeDirection(ball, board);
-            Assert.AreNotEqual(startDirection, ball.SpeedVector);
+            Assert.AreNotEqual(startDirection, ball.DirectionVector);
 
         }
 

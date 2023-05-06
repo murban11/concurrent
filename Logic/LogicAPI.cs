@@ -24,9 +24,9 @@ namespace Logic
             return dataAPI.GetBallCoordinates(id);
         }
 
-        public override Vector2 GetBallDirection(int id)
+        public override Vector2 GetBallDirectionVector(int id)
         {
-            return dataAPI.GetBallSpeedVector(id);
+            return dataAPI.GetBallDirectionVector(id);
         }
 
         public override int GetBoxWidth()
