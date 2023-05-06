@@ -14,8 +14,6 @@ namespace Data
         public abstract int Height { get; set; }
         public abstract int BallNumber { get; set; }
 
-        private readonly List<IBall> balls;
-
         public abstract void generateBalls(int numberOfBalls, double radius, double weight, Vector2 maxVelocity);
 
         public abstract int getBallNumber();

@@ -49,9 +49,9 @@ namespace Logic
             return dataAPI.GetBallNumber();
         }
 
-        public override void Move()
+        public override void Move(int index)
         {
-            logic.updateAllPostions(dataAPI.GetBoard());
+            logic.updateBallPosition(dataAPI.GetBoard(), index);
         }
 
         public override List<IBall> GetBalls()
@@ -61,6 +61,7 @@ namespace Logic
             {
                 list.Add(dataAPI.GetBoard().GetBall(i));
             }
+
             return list;
         }
     }

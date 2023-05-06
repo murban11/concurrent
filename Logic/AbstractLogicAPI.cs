@@ -19,7 +19,7 @@ namespace Logic
 
         public abstract int GetBallNumber();
 
-        public abstract void Move();
+        public abstract void Move(int index);
 
         public abstract List<IBall> GetBalls();
 

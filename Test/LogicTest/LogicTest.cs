@@ -45,7 +45,7 @@ namespace LogicTest
             IBall ball1 = IBall.CreateBall(0, new System.Numerics.Vector2(5, 5), 1, 1, startPostion);
             board.addBall(ball);
             board.addBall(ball1);
-            logic.updateAllPostions(board);
+            logic.updateBallPosition(board, 0);
             Assert.AreNotEqual(board.GetBall(0).Coordinates, startPostion);
             Assert.AreNotEqual(board.GetBall(1).Coordinates, startPostion);
         }

@@ -2,19 +2,18 @@
 
 namespace Data
 {
-    internal class Board: IBoard
+    internal class Board : IBoard
     {
         
         public override int Width { get; set; }
         public override int Height { get; set; }
         public override int BallNumber { get; set; }
-
-        private readonly List<IBall> balls = new List<IBall>();
-        private List<IBall> Balls { get { return balls; } }
+        private List<IBall> Balls { get; }
 
         public Board(int Width, int Height) {
             this.Width = Width;
             this.Height = Height;
+            Balls = new List<IBall>();
         }
 
         private IBall createBall(int id, double radius, double weight, Vector2 maxVelocity)

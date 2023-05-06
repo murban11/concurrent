@@ -60,7 +60,7 @@ namespace LogicAPITest
             LogicAPI.Start(1);
             Vector2 start = LogicAPI.GetBallDirection(0);
             Vector2 target = LogicAPI.GetBallCoordinates(0) + LogicAPI.GetBallDirection(0);
-            LogicAPI.Move();
+            LogicAPI.Move(0);
             Assert.AreNotEqual(start, LogicAPI.GetBallCoordinates(0));
             Assert.AreEqual(target, LogicAPI.GetBallCoordinates(0));
         }

@@ -31,22 +31,19 @@ namespace Logic
             ball.changeSpeedVector(NewSpeedVector);
         }
 
-        public void updateAllPostions(IBoard board)
+        public void updateBallPosition(IBoard board, int index)
         {
-            for (int i = 0; i < board.getBallNumber(); i++)
+            while(checkNextMove(board.GetBall(index), board) == false)
             {
-                while(checkNextMove(board.GetBall(i), board) == false)
+                changeDirection(board.GetBall(index), board);
+                if (!(checkVerticalCollision(board.GetBall(index).Coordinates, board.GetBall(index).SpeedVector, board.GetBall(index).Radius, board.Width)
+                    & checkHorizontalCollision(board.GetBall(index).Coordinates, board.GetBall(index).SpeedVector, board.GetBall(index).Radius, board.Height)))
                 {
-                    changeDirection(board.GetBall(i), board);
-                    if (!(checkVerticalCollision(board.GetBall(i).Coordinates, board.GetBall(i).SpeedVector, board.GetBall(i).Radius, board.Width)
-                        & checkHorizontalCollision(board.GetBall(i).Coordinates, board.GetBall(i).SpeedVector, board.GetBall(i).Radius, board.Height)))
-                    {
-                        break;
-                    }
-
+                    break;
                 }
-                board.GetBall(i).UpdatePosition();
+
             }
+            board.GetBall(index).UpdatePosition();
         }
 
         public bool checkVerticalCollision(Vector2 ballPosition, Vector2 ballVelocity, double ballRadius, double boardWidth)

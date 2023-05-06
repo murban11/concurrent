@@ -15,7 +15,7 @@ namespace Model
 
         public abstract IBallModel GetBallModel(int id);
 
-        public abstract void Simulate();
+        public abstract void Simulate(int numberOfBalls);
 
         public abstract void Move(object state);
 
