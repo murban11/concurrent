@@ -5,11 +5,12 @@ namespace Data
     internal class Ball: IBall
     {
         public override int ID {  get; }
-        public override Vector2 Coordinates { get; set; }        // (x, y) convention
+        public override Vector2 Coordinates { get; protected set; }        // (x, y) convention
         public override double Radius { get; set; }
         public override double Weight { get; set; }
         public override Vector2 DirectionVector { get; set; }                // (x, y) convention (for example in m)
 
+        private List<IObserver<Ball>> observers;
 
         public Ball(int ID, Vector2 Coordinates, double Radius, double Weight, Vector2 DirectionVector) {
             this.ID = ID;
@@ -17,15 +18,50 @@ namespace Data
             this.Radius = Radius;
             this.Weight = Weight;
             this.DirectionVector = DirectionVector;
+            observers = new List<IObserver<Ball>>();
+            UpdatePosition();
         }
 
-        public override void UpdatePosition()
+        private async void UpdatePosition()
         {
-            Coordinates = Vector2.Add(Coordinates, DirectionVector);
+            while (true)
+            {
+                Coordinates = Vector2.Add(Coordinates, DirectionVector);
+                foreach (IObserver<Ball> observer in observers)
+                {
+                    observer.OnNext(this);
+                }
+                await Task.Delay(50);
+            }
         }
         public override void changeDirectionVector(Vector2 data)
         {
             DirectionVector = data;
+        }
+
+        public override IDisposable Subscribe(IObserver<IBall> observer)
+        {
+            if (!observers.Contains(observer))
+                observers.Add(observer);
+            return new Unsubscriber(observers, observer);
+        }
+
+        private class Unsubscriber : IDisposable
+        {
+            private List<IObserver<Ball>> _observers;
+            private IObserver<Ball> _observer;
+
+            public Unsubscriber(List<IObserver<Ball>> observers, IObserver<Ball> observer)
+            {
+                _observers = observers;
+                _observer = observer;
+            }
+
+            public void Dispose()
+            {
+                if (_observer != null && _observers.Contains(_observer))
+                    _observers.Remove(_observer);
+            }
         }
     }
 }

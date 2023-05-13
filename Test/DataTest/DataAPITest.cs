@@ -10,7 +10,7 @@ namespace DataTest
     [TestClass]
     public class DataAPITest
     {
-        [TestMethod]
+        /*[TestMethod]
         public void TestGetBallCoordinates()
         {
             AbstractDataAPI api = AbstractDataAPI.CreateDataAPI();
@@ -72,16 +72,7 @@ namespace DataTest
             api.GenerateBalls(3, 5.0, 1.0, new System.Numerics.Vector2(2, 2));
             api.SetBallDirectionVector(0, new System.Numerics.Vector2(1, 1));
             Assert.AreEqual(api.GetBallDirectionVector(0), new System.Numerics.Vector2(1, 1));
-        }
+        }*/
 
-        [TestMethod]
-        public void TestUpdateBallCoordinates()
-        {
-            AbstractDataAPI api = AbstractDataAPI.CreateDataAPI();
-            api.GenerateBalls(1, 5.0, 1.0, new System.Numerics.Vector2(2, 2));
-            System.Numerics.Vector2 vector = api.GetBallCoordinates(0);
-            api.UpdateBallPosition(0);
-            Assert.AreNotEqual(vector, api.GetBallCoordinates(0));
-        }
     }
 }

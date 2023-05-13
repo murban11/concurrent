@@ -1,8 +1,9 @@
-﻿using System.Numerics;
+﻿using System;
+using System.Numerics;
 
 namespace Data
 {
-    public abstract class IBall
+    public abstract class IBall: IObservable<IBall>
     {
         public static IBall CreateBall(int ID, Vector2 Coordinates, double Radius, double Weight, Vector2 DirectionVector)
         {
@@ -10,11 +11,13 @@ namespace Data
         }
 
         public abstract int ID { get; }
-        public abstract Vector2 Coordinates { get; set; } 
+        public abstract Vector2 Coordinates { get; protected set; } 
         public abstract double Radius { get; set; }
         public abstract double Weight { get; set; }
         public abstract Vector2 DirectionVector { get; set; }
-        public abstract void UpdatePosition();
         public abstract void changeDirectionVector(Vector2 data);
+        public abstract IDisposable Subscribe(IObserver<IBall> observer);
+
+        
     }
 }

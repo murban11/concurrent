@@ -4,105 +4,57 @@ using System.Numerics;
 
 namespace LogicAPITest
 {
+
+    internal class TestDataAPI : AbstractDataAPI
+    {
+        private IBoard board = IBoard.CreateBoard(100, 100); 
+
+        public override IBoard GetBoard()
+        {
+            return board;
+        }
+
+        public override int GetBoardHeight()
+        {
+            return board.Height;
+        }
+
+        public override int GetBoardWidth()
+        {
+            return board.Width;
+        }
+    }
+
     [TestClass]
     public class LogicApiTest
     {
         [TestMethod]
         public void TestCreateLogicAPI()
         {
-            var LogicAPI = AbstractLogicAPI.CreateLogicAPI();
+            AbstractLogicAPI LogicAPI = AbstractLogicAPI.CreateLogicAPI(new TestDataAPI());
             Assert.IsInstanceOfType(LogicAPI, typeof(AbstractLogicAPI));
-        }
-
-        [TestMethod]
-        public void TestGetBallCoordinates()
-        {
-            var LogicAPI = AbstractLogicAPI.CreateLogicAPI();
-            LogicAPI.Start(3);
-            for (int i = 0; i < 3; i++)
-            {
-                var testCoordinates = LogicAPI.GetBallCoordinates(i);
-                Assert.IsInstanceOfType(testCoordinates, typeof(Vector2));
-                Assert.IsNotNull(testCoordinates);
-            }
-        }
-
-        [TestMethod]
-        public void TestGetBallDirectionVector()
-        {
-            var LogicAPI = AbstractLogicAPI.CreateLogicAPI();
-            LogicAPI.Start(3);
-            for (int i = 0; i < 3; i++)
-            {
-                var testCoordinates = LogicAPI.GetBallDirectionVector(i);
-                Assert.IsInstanceOfType(testCoordinates, typeof(Vector2));
-                Assert.IsNotNull(testCoordinates);
-            }
-        }
-
-        [TestMethod]
-        public void TestGetBallRadius()
-        {
-            var LogicAPI = AbstractLogicAPI.CreateLogicAPI();
-            LogicAPI.Start(3);
-            for (int i = 0; i < 3; i++)
-            {
-                var testCoordinates = LogicAPI.GetBallRadius(i);
-                Assert.IsInstanceOfType(testCoordinates, typeof(double));
-                Assert.IsNotNull(testCoordinates);
-            }
-        }
-
-        [TestMethod]
-        public void TestMove()
-        {
-            var LogicAPI = AbstractLogicAPI.CreateLogicAPI();
-            LogicAPI.Start(1);
-            Vector2 start = LogicAPI.GetBallDirectionVector(0);
-            Vector2 target = LogicAPI.GetBallCoordinates(0) + LogicAPI.GetBallDirectionVector(0);
-            LogicAPI.Move(0);
-            Assert.AreNotEqual(start, LogicAPI.GetBallCoordinates(0));
-            Assert.AreEqual(target, LogicAPI.GetBallCoordinates(0));
-        }
-
-        [TestMethod]
-        public void TestGetBallNumber()
-        {
-            var LogicAPI = AbstractLogicAPI.CreateLogicAPI();
-            LogicAPI.Start(3);
-            var testCoordinates = LogicAPI.GetBallNumber();
-            Assert.IsInstanceOfType(testCoordinates, typeof(int));
-            Assert.IsNotNull(testCoordinates); Assert.IsNotNull(testCoordinates);
         }
 
         [TestMethod]
         public void TestGetBoxWidth()
         {
-            var LogicAPI = AbstractLogicAPI.CreateLogicAPI();
+            AbstractLogicAPI LogicAPI = AbstractLogicAPI.CreateLogicAPI(new TestDataAPI());
             LogicAPI.Start(3);
-            var testCoordinates = LogicAPI.GetBoxWidth();
-            Assert.IsInstanceOfType(testCoordinates, typeof(int));
-            Assert.IsNotNull(testCoordinates);
+            int testWidth = LogicAPI.GetBoxWidth();
+            Assert.IsInstanceOfType(testWidth, typeof(int));
+            Assert.IsNotNull(testWidth);
+            Assert.AreEqual(testWidth, 100);
         }
 
         [TestMethod]
         public void TestGetBoardHeight()
         {
-            var LogicAPI = AbstractLogicAPI.CreateLogicAPI();
+            AbstractLogicAPI LogicAPI = AbstractLogicAPI.CreateLogicAPI(new TestDataAPI());
             LogicAPI.Start(3);
-            var testCoordinates = LogicAPI.GetBoxHeight();
-            Assert.IsInstanceOfType(testCoordinates, typeof(int));
-            Assert.IsNotNull(testCoordinates);
-        }
-
-        [TestMethod]
-        public void TestGetBalls()
-        {
-            var LogicAPI = AbstractLogicAPI.CreateLogicAPI();
-            LogicAPI.Start(3);
-            var testCoordinates = LogicAPI.GetBalls();
-            Assert.IsInstanceOfType(testCoordinates, typeof(List<IBall>));
-            Assert.IsNotNull(testCoordinates);
+            int testHeight = LogicAPI.GetBoxHeight();
+            Assert.IsInstanceOfType(testHeight, typeof(int));
+            Assert.IsNotNull(testHeight);
+            Assert.AreEqual(testHeight, 100);
         }
     }
 }

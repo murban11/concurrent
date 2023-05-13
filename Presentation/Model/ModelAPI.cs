@@ -44,24 +44,13 @@ namespace Model
                 task.Start();
             }
         }
-        public override void Move(object state)
-        {
-
-            /*logicAPI.Move();
-            for (int i = 0; i < Balls.Count; i++)
-            {
-                Balls[i].Move(logicAPI.GetBallCoordinates(i).X, logicAPI.GetBallCoordinates(i).Y);
-            }*/
-        }
 
         private void addTask(int index)
         {
             tasks.Add(new Task(() =>
             {
-                Stopwatch stopwatch = new Stopwatch();
                 while (true)
                 {
-                    logicAPI.Move(index);
                     Balls[index].Move(logicAPI.GetBallCoordinates(index).X, logicAPI.GetBallCoordinates(index).Y);
                     Thread.Sleep(TimeInterval);
                 }

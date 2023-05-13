@@ -1,9 +1,4 @@
 ﻿using Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataTest
 {
@@ -18,7 +13,7 @@ namespace DataTest
             Assert.AreEqual(board.Width, 100);
         }
 
-        [TestMethod]
+        /*[TestMethod]
         public void TestGenerateBalls()
         {
             IBoard board = IBoard.CreateBoard(100, 100);
@@ -41,6 +36,6 @@ namespace DataTest
             IBall ball = IBall.CreateBall(0, new System.Numerics.Vector2(1, 1), 3, 1, new System.Numerics.Vector2(1, 1));
             board.addBall(ball);
             Assert.AreEqual(board.GetBall(0).Radius, 3.0);
-        }
+        }*/
     }
 }

@@ -10,7 +10,7 @@ namespace Data
         {
             Board = new Board(414, 630);
         }
-        public override void GenerateBalls(int numberOfBalls, double radius, double weight, Vector2 direction)
+        /*public override void GenerateBalls(int numberOfBalls, double radius, double weight, Vector2 direction)
         {
             Board.generateBalls(numberOfBalls, radius, weight, direction);
         }
@@ -33,7 +33,7 @@ namespace Data
         public override double GetBallWeight(int ballID)
         {
             return Board.GetBall(ballID).Weight;
-        }
+        }*/
 
         public override int GetBoardHeight()
         {
@@ -44,7 +44,7 @@ namespace Data
         {
             return Board.Width;
         }
-        public override int GetBallNumber()
+        /*public override int GetBallNumber()
         {
             return Board.getBallNumber();
         }
@@ -52,12 +52,7 @@ namespace Data
         public override void SetBallDirectionVector(int ballID, Vector2 direction)
         {
             Board.GetBall(ballID).DirectionVector = direction;
-        }
-
-        public override void UpdateBallPosition(int ballID)
-        {
-            Board.GetBall(ballID).UpdatePosition();
-        }
+        }*/
 
         public override IBoard GetBoard()
         {

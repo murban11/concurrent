@@ -12,7 +12,7 @@ namespace Data
 
         public abstract int Width { get; set; }
         public abstract int Height { get; set; }
-        public abstract int BallNumber { get; set; }
+        /*public abstract int BallNumber { get; set; }
 
         public abstract void generateBalls(int numberOfBalls, double radius, double weight, Vector2 maxVelocity);
 
@@ -20,6 +20,6 @@ namespace Data
 
         public abstract void addBall(IBall ball);
 
-        public abstract IBall GetBall(int id);
+        public abstract IBall GetBall(int id);*/
     }
 }

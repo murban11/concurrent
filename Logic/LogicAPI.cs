@@ -1,4 +1,5 @@
 ﻿using Data;
+using System;
 using System.Numerics;
 
 namespace Logic
@@ -7,6 +8,8 @@ namespace Logic
     {
         private readonly AbstractDataAPI dataAPI;
         private BallLogic logic;
+        private List<IBall> balls;
+        private IObserver<int> observer = null;
 
         public LogicAPI(AbstractDataAPI dataAPI)
         {
@@ -15,20 +18,29 @@ namespace Logic
 
         public override void Start(int ballsNumber)
         {
-            dataAPI.GenerateBalls(ballsNumber, 10, 1, new Vector2(3, 3));
+            //dataAPI.GenerateBalls(ballsNumber, 10, 1, new Vector2(3, 3));
+            balls = new List<IBall>();
+            for(int i = 0; i < ballsNumber; i++)
+            {
+                Random rand = new();
+                Vector2 initialPosition = new((float)(rand.NextDouble() * (dataAPI.GetBoardWidth() - 2 * 10) + 10.1F), (float)(rand.NextDouble() * (dataAPI.GetBoardWidth() - 2 * 10) + 10.1F));
+                Vector2 initialDirection = new((float)(rand.NextDouble() * 2), (float)(rand.NextDouble() * 2));
+                IBall ball = IBall.CreateBall(i, initialPosition, 10, 1, initialDirection);
+                ball.Subscribe(this);
+                balls.Add(ball);
+            }
             logic = new BallLogic();
         }
-
         public override Vector2 GetBallCoordinates(int id)
         {
-            return dataAPI.GetBallCoordinates(id);
+            return balls[id].Coordinates;
+            //return dataAPI.GetBallCoordinates(id);
         }
-
         public override Vector2 GetBallDirectionVector(int id)
         {
-            return dataAPI.GetBallDirectionVector(id);
+            return balls[id].DirectionVector;
+            //return dataAPI.GetBallDirectionVector(id);
         }
-
         public override int GetBoxWidth()
         {
             return dataAPI.GetBoardWidth();
@@ -41,12 +53,14 @@ namespace Logic
 
         public override double GetBallRadius(int id)
         {
-            return dataAPI.GetBallRadius(id);
+            return balls[id].Radius;
+            //return dataAPI.GetBallRadius(id);
         }
 
         public override int GetBallNumber()
         {
-            return dataAPI.GetBallNumber();
+            return balls.Count();
+            //return dataAPI.GetBallNumber();
         }
 
         public override void Move(int index)
@@ -56,13 +70,74 @@ namespace Logic
 
         public override List<IBall> GetBalls()
         {
-            List<IBall> list = new List<IBall>();
+            /*List<IBall> list = new List<IBall>();
             for (int i = 0; i < GetBallNumber(); i++)
             {
                 list.Add(dataAPI.GetBoard().GetBall(i));
             }
+            return list;*/
 
-            return list;
+            return balls;
+        }
+
+        public override void OnCompleted()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void OnError(Exception error)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void OnNext(IBall ball)
+        {
+            int ballCount = balls.Count();
+            int index = -1;
+
+            for(int i = 0; i < ballCount; i++)
+            {
+                IBall other = balls[i];
+
+                if (ball == other)
+                {
+                    index = i;
+                    continue;
+                }
+
+                if (logic.checkVerticalCollision(ball.Coordinates, ball.DirectionVector, GetBallRadius(i), GetBoxWidth()))
+                {
+                    ball.DirectionVector = new Vector2(-ball.DirectionVector.X, ball.DirectionVector.Y);
+                }
+
+                if (logic.checkHorizontalCollision(ball.Coordinates, ball.DirectionVector, GetBallRadius(i), GetBoxHeight()))
+                {
+                    ball.DirectionVector = new Vector2(ball.DirectionVector.X, -ball.DirectionVector.Y);
+                }
+            }
+
+            //observer.OnNext(index);
+        }
+
+        public override IDisposable Subscribe(IObserver<int> observer)
+        {
+            this.observer = observer;
+            return new Unsubscriber(this.observer);
+        }
+
+        private class Unsubscriber : IDisposable
+        {
+            private IObserver<int> _observer;
+
+            public Unsubscriber(IObserver<int> observer)
+            {
+                _observer = observer;
+            }
+
+            public void Dispose()
+            {
+                _observer = null;
+            }
         }
     }
 }

@@ -33,7 +33,7 @@ namespace Logic
 
         public void updateBallPosition(IBoard board, int index)
         {
-            while(checkNextMove(board.GetBall(index), board) == false)
+            /*while(checkNextMove(board.GetBall(index), board) == false)
             {
                 changeDirection(board.GetBall(index), board);
                 if (!(checkVerticalCollision(board.GetBall(index).Coordinates, board.GetBall(index).DirectionVector, board.GetBall(index).Radius, board.Width)
@@ -42,8 +42,8 @@ namespace Logic
                     break;
                 }
 
-            }
-            board.GetBall(index).UpdatePosition();
+            }*/
+            ///board.GetBall(index).UpdatePosition();
         }
 
         public bool checkVerticalCollision(Vector2 ballPosition, Vector2 ballVelocity, double ballRadius, double boardWidth)
