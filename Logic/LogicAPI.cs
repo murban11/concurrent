@@ -19,18 +19,32 @@ namespace Logic
 
         public override void Start(int ballsNumber)
         {
+            bool petla;
             balls = new List<IBall>();
-            for(int i = 0; i < ballsNumber; i++)
+            logic = new BallLogic();
+            for (int i = 0; i < ballsNumber; i++)
             {
-                Random rand = new();
-                Vector2 initialPosition = new((float)(rand.NextDouble() * (dataAPI.GetBoardWidth() - 2 * 10) + 10.1F),
-                    (float)(rand.NextDouble() * (dataAPI.GetBoardWidth() - 2 * 10) + 10.1F));
-                Vector2 initialDirection = new((float)(rand.NextDouble() * 2), (float)(rand.NextDouble() * 2));
-                IBall ball = IBall.CreateBall(i, initialPosition, 10, 2, initialDirection);
+                IBall ball;
+                do
+                {
+                    petla = false;
+                    Random rand = new();
+                    Vector2 initialPosition = new((float)(rand.NextDouble() * (dataAPI.GetBoardWidth() - 2 * 10) + 10.1F),
+                        (float)(rand.NextDouble() * (dataAPI.GetBoardWidth() - 2 * 10) + 10.1F));
+                    Vector2 initialDirection = new((float)(rand.NextDouble() * 2), (float)(rand.NextDouble() * 2));
+                    ball = IBall.CreateBall(i, initialPosition, 10, 2, initialDirection);
+                    for (int j = 0; j < i; j++)
+                    {
+                        if (logic.checkBallCollision(ball, balls[j]))
+                        {
+                            petla = true;
+                            break;
+                        }
+                    }
+                } while (petla == true);
                 ball.Subscribe(this);
                 balls.Add(ball);
             }
-            logic = new BallLogic();
         }
         public override Vector2 GetBallCoordinates(int id)
         {

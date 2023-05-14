@@ -10,8 +10,8 @@ namespace Data
             return new Board(Width, Height);
         }
 
-        public abstract int Width { get; set; }
-        public abstract int Height { get; set; }
+        public abstract int Width { get; protected set; }
+        public abstract int Height { get; protected set; }
         /*public abstract int BallNumber { get; set; }
 
         public abstract void generateBalls(int numberOfBalls, double radius, double weight, Vector2 maxVelocity);

@@ -7,8 +7,8 @@ namespace Data
     {
         public override int ID {  get; }
         public override Vector2 Coordinates { get; protected set; }        // (x, y) convention
-        public override double Radius { get; set; }
-        public override double Weight { get; set; }
+        public override double Radius { get; protected set; }
+        public override double Weight { get; protected set; }
         public override Vector2 DirectionVector { get; set; }                // (x, y) convention (for example in m)
 
         private List<IObserver<Ball>> observers;
