@@ -6,9 +6,8 @@ namespace Logic
     public class BallLogic
     {
 
-        public void checkCollisions(IBall ball, IBoard board, IBall target)
+        public void checkCollisions(IBall ball, IBoard board)
         {
-            checkBallCollision(ball, target);
             Vector2 NewDirectionVector = ball.DirectionVector;
             if (checkVerticalCollisionBoard(ball.Coordinates, ball.DirectionVector, ball.Radius, board.Width))
             {
@@ -21,17 +20,16 @@ namespace Logic
             ball.changeDirectionVector(NewDirectionVector);
 
         }
-        public void checkBallCollision(IBall ball, IBall target)
+        public bool checkBallCollision(IBall ball, IBall target)
         {
             Vector2 nextPosition = ball.DirectionVector + ball.Coordinates;
-            double realDistanceX = (nextPosition - target.Coordinates).Length();
-            double maxDistance = ball.Radius + target.Radius;
-            if (realDistanceX <= maxDistance)
+            double realDistance = (nextPosition - target.Coordinates).Length();
+            double touching = ball.Radius + target.Radius;
+            if (realDistance <= touching)
             {
-                Vector2 tmp = ball.DirectionVector;
-                ball.changeDirectionVector(target.DirectionVector);
-                target.changeDirectionVector(tmp);
+                return true;
             }
+            return false;
         }
 
         public bool checkVerticalCollisionBoard(Vector2 ballPosition, Vector2 ballVelocity, double ballRadius, double boardWidth)

@@ -1,4 +1,5 @@
 ﻿using Data;
+using Org.BouncyCastle.Asn1.X509;
 using System.Numerics;
 
 namespace Logic
@@ -24,7 +25,8 @@ namespace Logic
                 Vector2 initialPosition = new((float)(rand.NextDouble() * (dataAPI.GetBoardWidth() - 2 * 10) + 10.1F),
                     (float)(rand.NextDouble() * (dataAPI.GetBoardWidth() - 2 * 10) + 10.1F));
                 Vector2 initialDirection = new((float)(rand.NextDouble() * 2), (float)(rand.NextDouble() * 2));
-                IBall ball = IBall.CreateBall(i, initialPosition, 10, 1, initialDirection);
+                //double weight = rand.NextDouble() + rand.Next(5) + 1;
+                IBall ball = IBall.CreateBall(i, initialPosition, 10, 2, initialDirection);
                 ball.Subscribe(this);
                 balls.Add(ball);
             }
@@ -87,10 +89,15 @@ namespace Logic
                     index = i;
                     continue;
                 }
-
-                logic.checkCollisions(ball, dataAPI.GetBoard(), other);
+                if(logic.checkBallCollision(ball, other))
+                {
+                    Vector2 tmp = ball.DirectionVector;
+                    ball.changeDirectionVector(other.DirectionVector);
+                    other.changeDirectionVector(tmp);
+                    observer.OnNext(i);
+                }
+                logic.checkCollisions(ball, dataAPI.GetBoard());
             }
-
             observer.OnNext(index);
         }
 

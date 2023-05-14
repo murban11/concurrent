@@ -1,4 +1,5 @@
-﻿using System.Numerics;
+﻿using System.Diagnostics;
+using System.Numerics;
 
 namespace Data
 {
@@ -26,12 +27,13 @@ namespace Data
         {
             while (true)
             {
-                Coordinates = Vector2.Add(Coordinates, DirectionVector);
+                Vector2 movement = new((float)(DirectionVector.X / Weight), (float)(DirectionVector.Y / Weight));
+                Coordinates = Vector2.Add(Coordinates, movement);
                 foreach (IObserver<Ball> observer in observers)
                 {
                     observer.OnNext(this);
                 }
-                await Task.Delay(50);
+                await Task.Delay(10);
             }
         }
         public override void changeDirectionVector(Vector2 data)
