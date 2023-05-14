@@ -19,8 +19,6 @@ namespace Logic
 
         public abstract int GetBallNumber();
 
-        public abstract void Move(int index);
-
         public abstract List<IBall> GetBalls();
 
         public static AbstractLogicAPI CreateLogicAPI(AbstractDataAPI dataAPI)

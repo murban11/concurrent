@@ -1,5 +1,4 @@
 ﻿using Data;
-using System;
 using System.Numerics;
 
 namespace Logic
@@ -18,12 +17,12 @@ namespace Logic
 
         public override void Start(int ballsNumber)
         {
-            //dataAPI.GenerateBalls(ballsNumber, 10, 1, new Vector2(3, 3));
             balls = new List<IBall>();
             for(int i = 0; i < ballsNumber; i++)
             {
                 Random rand = new();
-                Vector2 initialPosition = new((float)(rand.NextDouble() * (dataAPI.GetBoardWidth() - 2 * 10) + 10.1F), (float)(rand.NextDouble() * (dataAPI.GetBoardWidth() - 2 * 10) + 10.1F));
+                Vector2 initialPosition = new((float)(rand.NextDouble() * (dataAPI.GetBoardWidth() - 2 * 10) + 10.1F),
+                    (float)(rand.NextDouble() * (dataAPI.GetBoardWidth() - 2 * 10) + 10.1F));
                 Vector2 initialDirection = new((float)(rand.NextDouble() * 2), (float)(rand.NextDouble() * 2));
                 IBall ball = IBall.CreateBall(i, initialPosition, 10, 1, initialDirection);
                 ball.Subscribe(this);
@@ -34,12 +33,10 @@ namespace Logic
         public override Vector2 GetBallCoordinates(int id)
         {
             return balls[id].Coordinates;
-            //return dataAPI.GetBallCoordinates(id);
         }
         public override Vector2 GetBallDirectionVector(int id)
         {
             return balls[id].DirectionVector;
-            //return dataAPI.GetBallDirectionVector(id);
         }
         public override int GetBoxWidth()
         {
@@ -54,29 +51,15 @@ namespace Logic
         public override double GetBallRadius(int id)
         {
             return balls[id].Radius;
-            //return dataAPI.GetBallRadius(id);
         }
 
         public override int GetBallNumber()
         {
             return balls.Count();
-            //return dataAPI.GetBallNumber();
-        }
-
-        public override void Move(int index)
-        {
-            logic.updateBallPosition(dataAPI.GetBoard(), index);
         }
 
         public override List<IBall> GetBalls()
         {
-            /*List<IBall> list = new List<IBall>();
-            for (int i = 0; i < GetBallNumber(); i++)
-            {
-                list.Add(dataAPI.GetBoard().GetBall(i));
-            }
-            return list;*/
-
             return balls;
         }
 
@@ -93,27 +76,19 @@ namespace Logic
         public override void OnNext(IBall ball)
         {
             int ballCount = balls.Count();
-            int index = -1;
+            //int index = -1;
 
             for(int i = 0; i < ballCount; i++)
             {
                 IBall other = balls[i];
 
-                if (ball == other)
+                /*if (ball == other)
                 {
                     index = i;
                     continue;
-                }
+                }*/
 
-                if (logic.checkVerticalCollision(ball.Coordinates, ball.DirectionVector, GetBallRadius(i), GetBoxWidth()))
-                {
-                    ball.DirectionVector = new Vector2(-ball.DirectionVector.X, ball.DirectionVector.Y);
-                }
-
-                if (logic.checkHorizontalCollision(ball.Coordinates, ball.DirectionVector, GetBallRadius(i), GetBoxHeight()))
-                {
-                    ball.DirectionVector = new Vector2(ball.DirectionVector.X, -ball.DirectionVector.Y);
-                }
+                logic.changeDirection(ball, dataAPI.GetBoard());
             }
 
             //observer.OnNext(index);

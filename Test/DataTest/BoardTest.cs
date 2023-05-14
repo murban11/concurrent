@@ -9,33 +9,27 @@ namespace DataTest
         public void TestConstructor()
         {
             IBoard board = IBoard.CreateBoard(100, 100);
-            Assert.AreEqual(board.Height, 100);
+            Assert.IsInstanceOfType(board, typeof(IBoard));
+
+        }
+
+        [TestMethod]
+        public void TestBoardWidth()
+        {
+            IBoard board = IBoard.CreateBoard(100, 100);
+            Assert.IsNotNull(board.Width);
+            Assert.IsInstanceOfType(board.Width, typeof(int));
             Assert.AreEqual(board.Width, 100);
         }
 
-        /*[TestMethod]
-        public void TestGenerateBalls()
+        [TestMethod]
+        public void TestBoardHeight()
         {
             IBoard board = IBoard.CreateBoard(100, 100);
-            board.generateBalls(3, 5.0, 1.0, new System.Numerics.Vector2(2, 2));
-            Assert.AreEqual(board.GetBall(0).Radius, 5.0);
+            Assert.IsNotNull(board.Height);
+            Assert.IsInstanceOfType(board.Height, typeof(int));
+            Assert.AreEqual(board.Height, 100);
         }
 
-        [TestMethod]
-        public void TestGetBallNumber()
-        {
-            AbstractDataAPI api = AbstractDataAPI.CreateDataAPI();
-            api.GenerateBalls(3, 5.0, 1.0, new System.Numerics.Vector2(2, 2));
-            Assert.AreEqual(api.GetBallNumber(), 3);
-        }
-
-        [TestMethod]
-        public void TestAddBall()
-        {
-            IBoard board = IBoard.CreateBoard(100, 100);
-            IBall ball = IBall.CreateBall(0, new System.Numerics.Vector2(1, 1), 3, 1, new System.Numerics.Vector2(1, 1));
-            board.addBall(ball);
-            Assert.AreEqual(board.GetBall(0).Radius, 3.0);
-        }*/
     }
 }

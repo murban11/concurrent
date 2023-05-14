@@ -7,47 +7,26 @@ namespace LogicTest
     [TestClass]
     public class LogicTest 
     {
-        /*[TestMethod]
-        public void TestCheckNextMove()
+        [TestMethod]
+        public void TestCheckVerticalCollision()
         {
             BallLogic logic = new BallLogic();
-            IBoard board = IBoard.CreateBoard(100, 100);
-            IBall ball = IBall.CreateBall(0, new System.Numerics.Vector2(2, 2), 1, 1, new System.Numerics.Vector2(-5, -5));
-            IBall ball1 = IBall.CreateBall(0, new System.Numerics.Vector2(2, 2), 1, 1, new System.Numerics.Vector2(5, 5));
-            board.addBall(ball);
-            //ball.UpdatePosition();
-            Assert.IsFalse(logic.checkNextMove(ball, board));
-            board.addBall(ball1);
-            //ball1.UpdatePosition();
-            Assert.IsTrue(logic.checkNextMove(ball1, board));
+            Vector2 CurrentPosition = new Vector2(98, 98);
+            double ballRadius = 1;
+            double boardWidth = 100;
+            Assert.IsTrue(logic.checkVerticalCollision(CurrentPosition, new Vector2(10, 10), ballRadius, boardWidth));
+            Assert.IsFalse(logic.checkVerticalCollision(CurrentPosition, new Vector2(0, 0), ballRadius, boardWidth));
         }
 
         [TestMethod]
-        public void TestChangeDirection()
+        public void TestCheckHorizontalCollision()
         {
             BallLogic logic = new BallLogic();
-            IBoard board = IBoard.CreateBoard(100, 100);
-            IBall ball = IBall.CreateBall(0, new System.Numerics.Vector2(2, 2), 1, 1, new System.Numerics.Vector2(-500, 2));
-            board.addBall(ball);
-            Vector2 startDirection = ball.DirectionVector;
-            logic.changeDirection(ball, board);
-            Assert.AreNotEqual(startDirection, ball.DirectionVector);
-
+            Vector2 CurrentPosition = new Vector2(98, 98);
+            double ballRadius = 1;
+            double boardHeight = 100;
+            Assert.IsTrue(logic.checkHorizontalCollision(CurrentPosition, new Vector2(10, 10), ballRadius, boardHeight));
+            Assert.IsFalse(logic.checkHorizontalCollision(CurrentPosition, new Vector2(0, 0), ballRadius, boardHeight));
         }
-
-        [TestMethod]
-        public void TestUpdateAllPositions()
-        {
-            BallLogic logic = new BallLogic();
-            IBoard board = IBoard.CreateBoard(100, 100);
-            Vector2 startPostion = new System.Numerics.Vector2(1, 1);
-            IBall ball = IBall.CreateBall(0, new System.Numerics.Vector2(2, 2), 1, 1, startPostion);
-            IBall ball1 = IBall.CreateBall(0, new System.Numerics.Vector2(5, 5), 1, 1, startPostion);
-            board.addBall(ball);
-            board.addBall(ball1);
-            logic.updateBallPosition(board, 0);
-            Assert.AreNotEqual(board.GetBall(0).Coordinates, startPostion);
-            Assert.AreNotEqual(board.GetBall(1).Coordinates, startPostion);
-        }*/
     }
 }

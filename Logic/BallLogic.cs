@@ -31,21 +31,6 @@ namespace Logic
             ball.changeDirectionVector(NewDirectionVector);
         }
 
-        public void updateBallPosition(IBoard board, int index)
-        {
-            /*while(checkNextMove(board.GetBall(index), board) == false)
-            {
-                changeDirection(board.GetBall(index), board);
-                if (!(checkVerticalCollision(board.GetBall(index).Coordinates, board.GetBall(index).DirectionVector, board.GetBall(index).Radius, board.Width)
-                    & checkHorizontalCollision(board.GetBall(index).Coordinates, board.GetBall(index).DirectionVector, board.GetBall(index).Radius, board.Height)))
-                {
-                    break;
-                }
-
-            }*/
-            ///board.GetBall(index).UpdatePosition();
-        }
-
         public bool checkVerticalCollision(Vector2 ballPosition, Vector2 ballVelocity, double ballRadius, double boardWidth)
         {
             Vector2 nextPosition = ballPosition + ballVelocity;

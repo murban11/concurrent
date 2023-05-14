@@ -7,7 +7,7 @@ namespace LogicAPITest
 
     internal class TestDataAPI : AbstractDataAPI
     {
-        private IBoard board = IBoard.CreateBoard(100, 100); 
+        private IBoard board = IBoard.CreateBoard(100, 100);
 
         public override IBoard GetBoard()
         {
@@ -55,6 +55,42 @@ namespace LogicAPITest
             Assert.IsInstanceOfType(testHeight, typeof(int));
             Assert.IsNotNull(testHeight);
             Assert.AreEqual(testHeight, 100);
+        }
+
+        [TestMethod]
+        public void TestGetBallRadius()
+        {
+            AbstractLogicAPI LogicAPI = AbstractLogicAPI.CreateLogicAPI(new TestDataAPI());
+            LogicAPI.Start(1);
+            Assert.IsInstanceOfType(LogicAPI.GetBallRadius(0), typeof(double));
+            Assert.AreEqual(LogicAPI.GetBallRadius(0), 10);
+        }
+
+        [TestMethod]
+        public void TestGetBallNumber()
+        {
+            AbstractLogicAPI LogicAPI = AbstractLogicAPI.CreateLogicAPI(new TestDataAPI());
+            LogicAPI.Start(3);
+            Assert.IsInstanceOfType(LogicAPI.GetBallNumber(), typeof(int));
+            Assert.AreEqual(LogicAPI.GetBallNumber(), 3);
+        }
+
+        [TestMethod]
+        public void TestGetBallCoordinates()
+        {
+            AbstractLogicAPI LogicAPI = AbstractLogicAPI.CreateLogicAPI(new TestDataAPI());
+            LogicAPI.Start(1);
+            Assert.IsInstanceOfType(LogicAPI.GetBallCoordinates(0), typeof(Vector2));
+            Assert.IsNotNull(LogicAPI.GetBallCoordinates(0));
+        }
+
+        [TestMethod]
+        public void TestGetBallDirectionVector()
+        {
+            AbstractLogicAPI LogicAPI = AbstractLogicAPI.CreateLogicAPI(new TestDataAPI());
+            LogicAPI.Start(1);
+            Assert.IsInstanceOfType(LogicAPI.GetBallDirectionVector(0), typeof(Vector2));
+            Assert.IsNotNull(LogicAPI.GetBallCoordinates(0));
         }
     }
 }
