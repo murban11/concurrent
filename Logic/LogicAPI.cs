@@ -88,7 +88,7 @@ namespace Logic
                     continue;
                 }*/
 
-                logic.changeDirection(ball, dataAPI.GetBoard());
+                logic.checkCollisions(ball, dataAPI.GetBoard(), other);
             }
 
             //observer.OnNext(index);

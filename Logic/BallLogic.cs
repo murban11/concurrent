@@ -1,44 +1,48 @@
 ﻿using Data;
+using NPOI.OpenXmlFormats.Dml.Diagram;
 using System.Numerics;
 
 namespace Logic
 {
     public class BallLogic
     {
-        public Boolean checkNextMove(IBall ball, IBoard board)
-        {
-            if(ball.Coordinates.X + ball.Radius < board.Width && ball.Coordinates.X - ball.Radius > 0)
-            {
-                if (ball.Coordinates.Y + ball.Radius < board.Height && ball.Coordinates.Y - ball.Radius > 0)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
 
-        public void changeDirection(IBall ball, IBoard board)
+        public void checkCollisions(IBall ball, IBoard board, IBall target)
         {
+            checkBallCollision(ball, target);
             Vector2 NewDirectionVector = ball.DirectionVector;
-            if (checkVerticalCollision(ball.Coordinates, ball.DirectionVector, ball.Radius, board.Width))
+            if (checkVerticalCollisionBoard(ball.Coordinates, ball.DirectionVector, ball.Radius, board.Width))
             {
                 NewDirectionVector.X = -1 * ball.DirectionVector.X;
             }
-            if (checkHorizontalCollision(ball.Coordinates, ball.DirectionVector, ball.Radius, board.Height))
+            if (checkHorizontalCollisionBoard(ball.Coordinates, ball.DirectionVector, ball.Radius, board.Height))
             {
                 NewDirectionVector.Y = -1 * ball.DirectionVector.Y;
             }
             ball.changeDirectionVector(NewDirectionVector);
+
+        }
+        public void checkBallCollision(IBall ball, IBall target)
+        {
+            Vector2 nextPosition = ball.DirectionVector + ball.Coordinates;
+            double realDistanceX = (nextPosition - target.Coordinates).Length();
+            double maxDistance = ball.Radius + target.Radius;
+            if (realDistanceX <= maxDistance)
+            {
+                Vector2 tmp = ball.DirectionVector;
+                ball.changeDirectionVector(target.DirectionVector);
+                target.changeDirectionVector(tmp);
+            }
         }
 
-        public bool checkVerticalCollision(Vector2 ballPosition, Vector2 ballVelocity, double ballRadius, double boardWidth)
+        public bool checkVerticalCollisionBoard(Vector2 ballPosition, Vector2 ballVelocity, double ballRadius, double boardWidth)
         {
             Vector2 nextPosition = ballPosition + ballVelocity;
 
             return nextPosition.X - ballRadius <= 0 || nextPosition.X + ballRadius >= boardWidth;
         }
 
-        public bool checkHorizontalCollision(Vector2 ballPosition, Vector2 ballVelocity, double ballRadius, double boardHeight)
+        public bool checkHorizontalCollisionBoard(Vector2 ballPosition, Vector2 ballVelocity, double ballRadius, double boardHeight)
         {
             Vector2 nextPosition = ballPosition + ballVelocity;
 

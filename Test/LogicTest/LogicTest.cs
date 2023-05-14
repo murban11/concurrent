@@ -14,8 +14,8 @@ namespace LogicTest
             Vector2 CurrentPosition = new Vector2(98, 98);
             double ballRadius = 1;
             double boardWidth = 100;
-            Assert.IsTrue(logic.checkVerticalCollision(CurrentPosition, new Vector2(10, 10), ballRadius, boardWidth));
-            Assert.IsFalse(logic.checkVerticalCollision(CurrentPosition, new Vector2(0, 0), ballRadius, boardWidth));
+            Assert.IsTrue(logic.checkVerticalCollisionBoard(CurrentPosition, new Vector2(10, 10), ballRadius, boardWidth));
+            Assert.IsFalse(logic.checkVerticalCollisionBoard(CurrentPosition, new Vector2(0, 0), ballRadius, boardWidth));
         }
 
         [TestMethod]
@@ -25,8 +25,8 @@ namespace LogicTest
             Vector2 CurrentPosition = new Vector2(98, 98);
             double ballRadius = 1;
             double boardHeight = 100;
-            Assert.IsTrue(logic.checkHorizontalCollision(CurrentPosition, new Vector2(10, 10), ballRadius, boardHeight));
-            Assert.IsFalse(logic.checkHorizontalCollision(CurrentPosition, new Vector2(0, 0), ballRadius, boardHeight));
+            Assert.IsTrue(logic.checkHorizontalCollisionBoard(CurrentPosition, new Vector2(10, 10), ballRadius, boardHeight));
+            Assert.IsFalse(logic.checkHorizontalCollisionBoard(CurrentPosition, new Vector2(0, 0), ballRadius, boardHeight));
         }
     }
 }
