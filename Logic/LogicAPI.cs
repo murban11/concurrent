@@ -76,22 +76,22 @@ namespace Logic
         public override void OnNext(IBall ball)
         {
             int ballCount = balls.Count();
-            //int index = -1;
+            int index = -1;
 
             for(int i = 0; i < ballCount; i++)
             {
                 IBall other = balls[i];
 
-                /*if (ball == other)
+                if (ball == other)
                 {
                     index = i;
                     continue;
-                }*/
+                }
 
                 logic.checkCollisions(ball, dataAPI.GetBoard(), other);
             }
 
-            //observer.OnNext(index);
+            observer.OnNext(index);
         }
 
         public override IDisposable Subscribe(IObserver<int> observer)

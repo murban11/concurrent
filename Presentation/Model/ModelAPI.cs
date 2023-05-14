@@ -1,8 +1,6 @@
 ﻿using Data;
 using Logic;
-using NPOI.POIFS.Crypt.Dsig;
-using System.Diagnostics;
-using System.Threading.Tasks;
+using System.Numerics;
 
 namespace Model
 {
@@ -11,13 +9,29 @@ namespace Model
     {
         private AbstractLogicAPI logicAPI;
         public List<Task> tasks { get; set; } = new List<Task>();
-        private readonly int TimeInterval = 10; // (in ms)
+        private readonly IDisposable unsubscriber;
+        private IObserver<IBallModel> observer;
 
+        private class Unsubscriber : IDisposable
+        {
+            private IObserver<IBallModel> _observer;
+
+            public Unsubscriber(IObserver<IBallModel> observer)
+            {
+                _observer = observer;
+            }
+
+            public void Dispose()
+            {
+                _observer = null;
+            }
+        }
 
         public ModelAPI(AbstractLogicAPI logicAPI)
         {
             this.logicAPI = logicAPI;
             Balls = new List<IBallModel> ();
+            unsubscriber = logicAPI.Subscribe(this);
         }
 
 
@@ -27,9 +41,7 @@ namespace Model
             for (int i = 0; i < numberOfBalls; i++)
             {
                 Balls.Add(new BallModel(logicAPI.GetBallCoordinates(i).X, logicAPI.GetBallCoordinates(i).Y, logicAPI.GetBallRadius(i)));
-                addTask(i);
             }
-            Simulate(numberOfBalls);
         }
 
         public override IBallModel GetBallModel(int id)
@@ -37,26 +49,29 @@ namespace Model
             return Balls[id];
         }
 
-        public override void Simulate(int numberOfBalls)
+        public override void OnCompleted()
         {
-            foreach (Task task in tasks)
-            {
-                task.Start();
-            }
+            throw new NotImplementedException();
         }
 
-        private void addTask(int index)
+        public override void OnError(Exception error)
         {
-            tasks.Add(new Task(() =>
-            {
-                while (true)
-                {
-                    Balls[index].Move(logicAPI.GetBallCoordinates(index).X, logicAPI.GetBallCoordinates(index).Y);
-                    Thread.Sleep(TimeInterval);
-                }
-            }));
+            throw new NotImplementedException();
         }
 
+        public override void OnNext(int value)
+        {
+            IBallModel ball = Balls[value];
+            Vector2 position = logicAPI.GetBallCoordinates(value);
+            double radius = logicAPI.GetBallRadius(value);
+            ball.Move(position.X, position.Y);
+        }
+
+        public override IDisposable Subscribe(IObserver<IBallModel> observer)
+        {
+            this.observer = observer;
+            return new Unsubscriber(this.observer);
+        }
     }
 }
 

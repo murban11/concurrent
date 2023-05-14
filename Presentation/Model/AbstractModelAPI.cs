@@ -2,7 +2,7 @@
 
 namespace Model
 {
-    public abstract class AbstractModelAPI
+    public abstract class AbstractModelAPI : IObserver<int>, IObservable<IBallModel>
     {
         public List<IBallModel> Balls { get; set; }
 
@@ -10,14 +10,14 @@ namespace Model
 
         public abstract IBallModel GetBallModel(int id);
 
-        public abstract void Simulate(int numberOfBalls);
-
-
         public static AbstractModelAPI CreateAPI()
         {
             return new ModelAPI(AbstractLogicAPI.CreateLogicAPI(null));
         }
 
-
+        public abstract void OnCompleted();
+        public abstract void OnError(Exception error);
+        public abstract void OnNext(int value);
+        public abstract IDisposable Subscribe(IObserver<IBallModel> observer);
     }
 }
