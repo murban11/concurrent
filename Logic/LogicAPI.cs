@@ -10,6 +10,7 @@ namespace Logic
         private BallLogic logic;
         private List<IBall> balls;
         private IObserver<int> observer = null;
+        private readonly object _gate = new object();
 
         public LogicAPI(AbstractDataAPI dataAPI)
         {
@@ -25,7 +26,6 @@ namespace Logic
                 Vector2 initialPosition = new((float)(rand.NextDouble() * (dataAPI.GetBoardWidth() - 2 * 10) + 10.1F),
                     (float)(rand.NextDouble() * (dataAPI.GetBoardWidth() - 2 * 10) + 10.1F));
                 Vector2 initialDirection = new((float)(rand.NextDouble() * 2), (float)(rand.NextDouble() * 2));
-                //double weight = rand.NextDouble() + rand.Next(5) + 1;
                 IBall ball = IBall.CreateBall(i, initialPosition, 10, 2, initialDirection);
                 ball.Subscribe(this);
                 balls.Add(ball);
@@ -77,28 +77,31 @@ namespace Logic
 
         public override void OnNext(IBall ball)
         {
-            int ballCount = balls.Count();
-            int index = -1;
-
-            for(int i = 0; i < ballCount; i++)
+            lock(_gate)
             {
-                IBall other = balls[i];
+                int ballCount = balls.Count();
+                int index = -1;
 
-                if (ball == other)
+                for (int i = 0; i < ballCount; i++)
                 {
-                    index = i;
-                    continue;
+                    IBall other = balls[i];
+
+                    if (ball == other)
+                    {
+                        index = i;
+                        continue;
+                    }
+                    if (logic.checkBallCollision(ball, other))
+                    {
+                        Vector2 tmp = ball.DirectionVector;
+                        ball.changeDirectionVector(other.DirectionVector);
+                        other.changeDirectionVector(tmp);
+                        observer.OnNext(i);
+                    }
+                    logic.checkCollisions(ball, dataAPI.GetBoard());
                 }
-                if(logic.checkBallCollision(ball, other))
-                {
-                    Vector2 tmp = ball.DirectionVector;
-                    ball.changeDirectionVector(other.DirectionVector);
-                    other.changeDirectionVector(tmp);
-                    observer.OnNext(i);
-                }
-                logic.checkCollisions(ball, dataAPI.GetBoard());
-            }
-            observer.OnNext(index);
+                observer.OnNext(index);
+            }   
         }
 
         public override IDisposable Subscribe(IObserver<int> observer)

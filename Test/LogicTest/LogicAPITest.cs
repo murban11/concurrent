@@ -4,24 +4,22 @@ using System.Numerics;
 
 namespace LogicAPITest
 {
-
     internal class TestDataAPI : AbstractDataAPI
     {
-        private IBoard board = IBoard.CreateBoard(100, 100);
 
         public override IBoard GetBoard()
         {
-            return board;
+            return null;
         }
 
         public override int GetBoardHeight()
         {
-            return board.Height;
+            return 100;
         }
 
         public override int GetBoardWidth()
         {
-            return board.Width;
+            return 100;
         }
     }
 
