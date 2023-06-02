@@ -6,6 +6,11 @@ namespace LogicAPITest
 {
     internal class TestDataAPI : AbstractDataAPI
     {
+        public override void appendToLoggingQueue(IBall ball)
+        {
+            throw new NotImplementedException();
+        }
+
 
         public override IBoard GetBoard()
         {
@@ -21,6 +26,8 @@ namespace LogicAPITest
         {
             return 100;
         }
+
+        
     }
 
     [TestClass]

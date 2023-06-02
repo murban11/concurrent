@@ -12,6 +12,7 @@ namespace Logic
         private IObserver<int> observer = null;
         private readonly object _gate = new object();
 
+
         public LogicAPI(AbstractDataAPI dataAPI)
         {
             this.dataAPI = dataAPI;
@@ -19,7 +20,7 @@ namespace Logic
 
         public override void Start(int ballsNumber)
         {
-            bool petla;
+            bool loop;
             balls = new List<IBall>();
             logic = new BallLogic();
             for (int i = 0; i < ballsNumber; i++)
@@ -27,7 +28,7 @@ namespace Logic
                 IBall ball;
                 do
                 {
-                    petla = false;
+                    loop = false;
                     Random rand = new();
                     Vector2 initialPosition = new((float)(rand.NextDouble() * (dataAPI.GetBoardWidth() - 2 * 10) + 10.1F),
                         (float)(rand.NextDouble() * (dataAPI.GetBoardWidth() - 2 * 10) + 10.1F));
@@ -37,11 +38,11 @@ namespace Logic
                     {
                         if (logic.checkBallCollision(ball, balls[j]))
                         {
-                            petla = true;
+                            loop = true;
                             break;
                         }
                     }
-                } while (petla == true);
+                } while (loop == true);
                 ball.Subscribe(this);
                 balls.Add(ball);
             }
@@ -93,6 +94,7 @@ namespace Logic
         {
             lock(_gate)
             {
+                dataAPI.appendToLoggingQueue(ball);
                 int ballCount = balls.Count();
                 int index = -1;
 

@@ -5,10 +5,13 @@ namespace Data
     internal class DataAPI : AbstractDataAPI
     {
         private readonly IBoard Board;
+        private Logger logger;
 
         public DataAPI()
         {
             Board = new Board(414, 630);
+            logger = new Logger(414, 630);
+            logger.startLogging();
         }
 
         public override int GetBoardHeight()
@@ -25,6 +28,12 @@ namespace Data
         {
             return Board;
         }
+
+        public override void appendToLoggingQueue(IBall ball)
+        {
+            logger.appendToQueue(ball);
+        }
+
     }
 
 }

@@ -14,5 +14,8 @@ namespace Data
         {
             return new DataAPI();
         }
+
+        public abstract void appendToLoggingQueue(IBall ball);
+
     }
 }
