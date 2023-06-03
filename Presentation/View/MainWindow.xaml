@@ -34,9 +34,11 @@
 
         </Grid>
         <StackPanel Margin="0,50,0,0">
-            <TextBox Height="19" TextWrapping="Wrap" Width="88" RenderTransformOrigin="0.396,-0.824" TextAlignment="Center" Text ="{Binding BallsNumberInput}" Margin="-350,0,0,0"/>
-            <Button Content="Start" Width="100" RenderTransformOrigin="0.503,-0.818" Command="{Binding StartButton}" Margin="0,20,0,0"/>
-            <TextBlock Height="54" TextWrapping="Wrap" Text="Podaj liczbę kul:" Width="120" Margin="-550,-30,0,0"/>
+            <TextBlock Height="20" TextWrapping="Wrap" Text="Podaj liczbę kul:" Width="90" Margin="-550,0,0,0"/>
+            <TextBox Height="20" TextWrapping="Wrap" Width="88" RenderTransformOrigin="0.396,-0.824" TextAlignment="Center" Text ="{Binding BallsNumberInput}" Margin="-370,-20,0,0"/>
+            <Button Content="Start" Width="100" RenderTransformOrigin="0.503,-0.818" Command="{Binding StartButton}" Margin="-550,10,0,0"/>
+            <Button Content="Exit" Width="100" RenderTransformOrigin="0.503,-0.818" Command="{Binding ExitButton}" Margin="-300,-20,0,0"/>
+            
         </StackPanel>
     </StackPanel>
 

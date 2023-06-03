@@ -43,6 +43,10 @@ namespace Model
                 Balls.Add(new BallModel(logicAPI.GetBallCoordinates(i).X, logicAPI.GetBallCoordinates(i).Y, logicAPI.GetBallRadius(i)));
             }
         }
+        public override void Exit()
+        {
+            logicAPI.Exit();
+        }
 
         public override IBallModel GetBallModel(int id)
         {

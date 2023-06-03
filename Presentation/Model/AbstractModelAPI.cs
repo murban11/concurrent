@@ -7,6 +7,7 @@ namespace Model
         public List<IBallModel> Balls { get; set; }
 
         public abstract void Start(int numberOfBalls);
+        public abstract void Exit();
 
         public abstract IBallModel GetBallModel(int id);
 

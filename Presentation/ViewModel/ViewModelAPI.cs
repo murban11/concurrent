@@ -26,7 +26,8 @@ namespace ViewModel
         public event PropertyChangedEventHandler PropertyChanged;
 
 		public ICommand StartButton { get; set; }
-		public string BallsNumberInput { get; set; }
+        public ICommand ExitButton { get; set; }
+        public string BallsNumberInput { get; set; }
 
 		public ViewModelAPI()
 		{
@@ -35,10 +36,16 @@ namespace ViewModel
 
 
 			StartButton = new RelayCommand(() => StartButtonHandler());
+            ExitButton = new RelayCommand(() => ExitButtonHandler());
 
-		}
+        }
 
-		private void StartButtonHandler()
+        private void ExitButtonHandler()
+        {
+			ModelAPI.Exit();
+        }
+
+        private void StartButtonHandler()
 		{
 			int numberOfBalls = GetBallsNumberInput();
 			ModelAPI.Start(numberOfBalls);

@@ -14,6 +14,7 @@ namespace Data
         public abstract Vector2 Coordinates { get; protected set; } 
         public abstract double Radius { get; protected set; }
         public abstract double Weight { get; protected set; }
+        public abstract bool IsRunning { get; set; }
         public abstract Vector2 DirectionVector { get; set; }
         public abstract void changeDirectionVector(Vector2 data);
         public abstract IDisposable Subscribe(IObserver<IBall> observer);

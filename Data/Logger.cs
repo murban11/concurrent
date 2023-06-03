@@ -30,7 +30,10 @@ namespace Data
 
             if (!queue.IsAddingCompleted)
             {
-                queue.Add(new BallData(ball.ID, ball.Coordinates, DateTime.Now));
+                if(ball.IsRunning)
+                {
+                    queue.Add(new BallData(ball.ID, ball.Coordinates, DateTime.Now));
+                }
             }
 
         }

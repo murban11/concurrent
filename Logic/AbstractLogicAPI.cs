@@ -6,6 +6,7 @@ namespace Logic
     public abstract class AbstractLogicAPI : IObserver<IBall>, IObservable<int>
     {
         public abstract void Start(int ballsNumber);
+        public abstract void Exit();
 
         public abstract Vector2 GetBallCoordinates(int id);
 

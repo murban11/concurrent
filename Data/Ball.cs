@@ -8,6 +8,7 @@ namespace Data
         public override Vector2 Coordinates { get; protected set; }        // (x, y) convention
         public override double Radius { get; protected set; }
         public override double Weight { get; protected set; }
+        public override bool IsRunning { get; set; }
         public override Vector2 DirectionVector { get; set; }                // (x, y) convention (for example in m)
 
         private List<IObserver<Ball>> observers;
@@ -18,13 +19,14 @@ namespace Data
             this.Radius = Radius;
             this.Weight = Weight;
             this.DirectionVector = DirectionVector;
+            IsRunning = true;
             observers = new List<IObserver<Ball>>();
             UpdatePosition();
         }
 
         private async void UpdatePosition()
         {
-            while (true)
+            while (IsRunning)
             {
                 Vector2 movement = new((float)(DirectionVector.X / Weight), (float)(DirectionVector.Y / Weight));
                 Coordinates = Vector2.Add(Coordinates, movement);

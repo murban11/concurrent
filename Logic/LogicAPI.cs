@@ -47,6 +47,13 @@ namespace Logic
                 balls.Add(ball);
             }
         }
+        public override void Exit()
+        {
+            for (int i = 0; i < balls.Count(); i++)
+            {
+                balls[i].IsRunning = false;
+            }
+        }
         public override Vector2 GetBallCoordinates(int id)
         {
             return balls[id].Coordinates;
