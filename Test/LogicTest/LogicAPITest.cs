@@ -11,6 +11,10 @@ namespace LogicAPITest
             throw new NotImplementedException();
         }
 
+        public override void Exit()
+        {
+            throw new NotImplementedException();
+        }
 
         public override IBoard GetBoard()
         {

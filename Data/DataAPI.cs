@@ -34,6 +34,11 @@ namespace Data
             logger.appendToQueue(ball);
         }
 
+        public override void Exit()
+        {
+            logger.Exit();
+        }
+
     }
 
 }

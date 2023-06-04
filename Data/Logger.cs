@@ -10,7 +10,7 @@ namespace Data
         private readonly int BoardWidth;
         private BlockingCollection<BallData> queue;
         private Task task;
-        private string logFilepath = "../../../../../Data/log.xml";
+        private static string logFilepath = "../../../../../Data/log.xml";
         private XmlWriter writer;
 
         public Logger(int height, int width) 
@@ -18,7 +18,6 @@ namespace Data
             BoardHeight = height;
             BoardWidth = width;
             queue = new BlockingCollection<BallData>();
-            //task = Task.Run(startLogging);
         }
 
         public void appendToQueue(IBall ball)
@@ -35,7 +34,6 @@ namespace Data
                     queue.Add(new BallData(ball.ID, ball.Coordinates, DateTime.Now));
                 }
             }
-
         }
 
         public void startLogging()
@@ -51,16 +49,26 @@ namespace Data
                     writer.WriteStartElement("Log");
                     foreach (BallData ball in queue.GetConsumingEnumerable())
                     {
-                        writer.WriteStartElement("Ball");
-                        writer.WriteElementString("ID", XmlConvert.ToString(ball.ID));
-                        writer.WriteElementString("X", XmlConvert.ToString(ball.X));
-                        writer.WriteElementString("Y", XmlConvert.ToString(ball.Y));
-                        writer.WriteElementString("Time", ball.Time);
-                        writer.WriteEndElement();
+                        LogBall(ball, writer);
                     }
                 }
             });
             
+        }
+
+        private void LogBall(BallData ball, XmlWriter writer)
+        {
+            writer.WriteStartElement("Ball");
+            writer.WriteElementString("ID", XmlConvert.ToString(ball.ID));
+            writer.WriteElementString("X", XmlConvert.ToString(ball.X));
+            writer.WriteElementString("Y", XmlConvert.ToString(ball.Y));
+            writer.WriteElementString("Time", ball.Time);
+            writer.WriteEndElement();
+        }
+
+        internal void Exit()
+        {
+            queue.CompleteAdding();
         }
 
         internal class BallData

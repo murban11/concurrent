@@ -53,6 +53,7 @@ namespace Logic
             {
                 balls[i].IsRunning = false;
             }
+            dataAPI.Exit();
         }
         public override Vector2 GetBallCoordinates(int id)
         {

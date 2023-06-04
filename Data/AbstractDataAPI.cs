@@ -16,6 +16,6 @@ namespace Data
         }
 
         public abstract void appendToLoggingQueue(IBall ball);
-
+        public abstract void Exit();
     }
 }
