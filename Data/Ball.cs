@@ -1,4 +1,6 @@
-﻿using System.Numerics;
+﻿using System.Diagnostics;
+using System.Numerics;
+using System.Reflection;
 
 namespace Data
 {
@@ -28,13 +30,23 @@ namespace Data
         {
             while (IsRunning)
             {
+                int delay = 10;
+                Stopwatch stopwatch = Stopwatch.StartNew();
                 Vector2 movement = new((float)(DirectionVector.X / Weight), (float)(DirectionVector.Y / Weight));
                 Coordinates = Vector2.Add(Coordinates, movement);
                 foreach (IObserver<Ball> observer in observers)
                 {
                     observer.OnNext(this);
                 }
-                await Task.Delay(10);
+                stopwatch.Stop();
+                if (stopwatch.ElapsedMilliseconds > 10) 
+                {
+                    delay = 0;
+                } else
+                {
+                    delay -= (int)stopwatch.ElapsedMilliseconds;
+                }
+                await Task.Delay(delay);
             }
         }
         public override void changeDirectionVector(Vector2 data)
